@@ -48,14 +48,18 @@
     "tooling",
     "oclif"
   ],
-  "license": "Apache 2.0",
+  "license": "Apache-2.0",
   "main": "dist/index.js",
   "oclif": {
     "bin": "evently",
     "commands": "./dist/commands",
     "plugins": [
+      "@oclif/plugin-commands",
       "@oclif/plugin-help",
-      "@oclif/plugin-plugins"
+      "@oclif/plugin-not-found",
+      "@oclif/plugin-plugins",
+      "@oclif/plugin-update",
+      "@oclif/plugin-which"
     ],
     "topicSeparator": " ",
     "topics": {
