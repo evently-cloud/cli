@@ -1,7 +1,7 @@
 {
   "name": "evently-cli",
   "description": "Evently.cloud CLI tools to develop applications and manage your ledgers.",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "author": "Evently",
   "bin": {
     "evently": "./bin/run"
