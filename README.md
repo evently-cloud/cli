@@ -31,11 +31,11 @@ The flag will override the environment variable, if set, for this command.
 
 ## Commands
 
-### `ledgers`
+### `ledger`
 
 This command provides the ledger’s name and current event count. 
 
-### `ledgers:download`
+### `ledger:download`
 
 ##### Flags
 

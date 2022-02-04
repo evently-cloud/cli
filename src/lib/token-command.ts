@@ -21,7 +21,7 @@ export abstract class TokenAwareCommand extends Command {
         message: "Evently access token missing.",
         suggestions: [
           "Pass as a flag (--token or -t)",
-          "set the EVENTLY_TOKEN environment variable to the access token."
+          `set the ${this.flags.token.env} environment variable to the access token.`
         ]
       })
     }
