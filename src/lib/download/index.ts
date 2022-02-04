@@ -1,9 +1,13 @@
 import * as fs from "fs"
+import * as stream from "stream"
 import {pipeline} from "stream/promises"
+import {promisify} from "util"
 import {validateLedgerFile} from "./file-ledger"
 import {openHttpLedgerReadStream} from "./http-ledger"
 import {LinesTransformer} from "./lines-transformer"
 import {ValidationTransformer} from "./validator"
+
+const finished = promisify(stream.finished);
 
 
 export async function downloadAndValidateLedger(token: string, ledgerFile: string): Promise<number> {
@@ -24,6 +28,9 @@ export async function downloadAndValidateLedger(token: string, ledgerFile: strin
     new LinesTransformer(),
     new ValidationTransformer(true, context),
     fileWriteStream)
+
+  // Wait for the file write stream to finish.
+  await finished(fileWriteStream)
 
   return context.count
 }

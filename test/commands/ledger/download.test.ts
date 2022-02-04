@@ -67,7 +67,7 @@ describe("ledger:download", () => {
 
   test
   .stdout()
-  .command(["ledger:download", "--file", ledgerFile])
+  .command(["ledger:download", "--file", ledgerFile, "-t", testToken])
   .it("downloads full ledger", (ctx) => {
     expect(ctx.stdout).to.contain("Downloading ledger fully")
     expect(ctx.stdout).to.contain("Validated 1 ledger event")
