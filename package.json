@@ -60,7 +60,7 @@
       "@oclif/plugin-not-found",
       "@oclif/plugin-update"
     ],
-    "topicSeparator": " ",
+    "topicSeparator": ":",
     "topics": {
       "ledger": {
         "description": "Ledger commands"
