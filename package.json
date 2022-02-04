@@ -1,0 +1,76 @@
+{
+  "name": "evently-cli",
+  "description": "Evently.cloud CLI tools to develop applications and manage your ledgers.",
+  "version": "0.0.0",
+  "author": "Evently",
+  "bin": {
+    "evently": "./bin/run"
+  },
+  "bugs": "https://github.com/evently-cloud/cli/issues",
+  "dependencies": {
+    "@js-joda/core": "5.1.0",
+    "@node-rs/crc32": "1.4.3",
+    "@oclif/core": "1.2.1",
+    "@oclif/plugin-help": "5.1.10",
+    "@oclif/plugin-plugins": "2.1.0",
+    "@types/node": "16.11.21",
+    "undici": "4.13.0"
+  },
+  "devDependencies": {
+    "@oclif/test": "2.0.3",
+    "@types/chai": "4.3.0",
+    "@types/mocha": "9.1.0",
+    "@types/node": "16.11.21",
+    "chai": "4.3.6",
+    "globby": "11.1.0",
+    "mocha": "9.2.0",
+    "nock": "^13.2.2",
+    "oclif": "2.4.1",
+    "shx": "0.3.4",
+    "ts-node": "10.4.0",
+    "tslib": "2.3.1",
+    "typescript": "4.5.5"
+  },
+  "dirname": "evently",
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "files": [
+    "/bin",
+    "/dist",
+    "/npm-shrinkwrap.json",
+    "/oclif.manifest.json"
+  ],
+  "homepage": "https://github.com/evently-cloud/cli",
+  "keywords": [
+    "evently",
+    "cli",
+    "tooling",
+    "oclif"
+  ],
+  "license": "Apache 2.0",
+  "main": "dist/index.js",
+  "oclif": {
+    "bin": "evently",
+    "commands": "./dist/commands",
+    "plugins": [
+      "@oclif/plugin-help",
+      "@oclif/plugin-plugins"
+    ],
+    "topicSeparator": " ",
+    "topics": {
+      "ledger": {
+        "description": "Ledger commands"
+      }
+    }
+  },
+  "repository": "evently-cloud/cli",
+  "scripts": {
+    "build": "shx rm -rf dist && tsc -b",
+    "postpack": "shx rm -f oclif.manifest.json",
+    "prepack": "yarn build && oclif manifest && oclif readme",
+    "test": "node --no-warnings node_modules/mocha/bin/_mocha --forbid-only \"test/**/*.test.ts\"",
+    "version": "oclif readme && git add README.md"
+  },
+  "types": "dist/index.d.ts"
+}

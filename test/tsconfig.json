@@ -1,0 +1,15 @@
+{
+  "extends": "../tsconfig",
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "module": "commonjs",
+    "moduleResolution": "Node",
+    "noEmit": true,
+    "skipLibCheck": true,
+    "target": "ES2020"
+  },
+  "references": [
+    {"path": ".."}
+  ]
+}
