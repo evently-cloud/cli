@@ -1,4 +1,4 @@
-import {fetch} from "undici"
+import {sendToEvently} from "../../lib/evently-connect"
 import {TokenAwareCommand} from "../../lib/token-command"
 
 
@@ -13,13 +13,10 @@ name: your-ledger-name, events: count
 
   async run(): Promise<void> {
     const {flags} = await this.parse(Ledger)
+
     const token = TokenAwareCommand.validateToken(flags.token)
 
-    const result = await fetch("https://preview.evently.cloud/ledgers", {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
+    const result = await sendToEvently(token, "/ledgers")
 
     if (result.status === 200) {
       const data = await result.json() as any
