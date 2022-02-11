@@ -7,7 +7,7 @@ export default class Download extends TokenAwareCommand {
   static description = "Download a Ledger"
 
   static examples = [
-    `$ evently download ledger
+    `$ evently ledger download
 Validated 13,438 ledger events.
 `]
 

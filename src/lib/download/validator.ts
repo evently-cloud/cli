@@ -22,7 +22,7 @@ export class ValidationTransformer extends Transform {
     }
   }
 
-  _transform(line: string, encoding: BufferEncoding, done: TransformCallback) {
+  _transform(line: string, encoding: BufferEncoding, done: TransformCallback): void {
     validateEventLineStep(this.context, line)
     if (this.passThrough) {
       this.push(`${line}\n`)
@@ -65,7 +65,9 @@ function calculateLedgerId(firstEvent: EventBody): string {
 }
 
 
-function calculateEventId(eventIn: EventBody, ledgerIdHex: string, previousEventId: string): string {
+function calculateEventId(eventIn:          EventBody,
+                          ledgerIdHex:      string,
+                          previousEventId:  string): string {
   // calculate the base checksum
   let checksum = calculateChecksumWithoutTimestamp(eventIn)
   // add LedgerId
