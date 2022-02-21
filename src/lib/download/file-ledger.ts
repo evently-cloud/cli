@@ -2,7 +2,7 @@ import * as fs from "fs"
 import {pipeline} from "stream/promises"
 import {LinesTransformer} from "./lines-transformer"
 import {ValidationContext} from "./types"
-import {ValidationTransformer} from "./validator"
+import {ValidationTransformer} from "./validationTransformer"
 
 
 export async function validateLedgerFile(path: string): Promise<ValidationContext> {

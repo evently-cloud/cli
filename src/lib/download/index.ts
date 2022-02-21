@@ -5,7 +5,7 @@ import {promisify} from "util"
 import {validateLedgerFile} from "./file-ledger"
 import {openHttpLedgerReadStream} from "./http-ledger"
 import {LinesTransformer} from "./lines-transformer"
-import {ValidationTransformer} from "./validator"
+import {ValidationTransformer} from "./validationTransformer"
 
 const finished = promisify(stream.finished);
 

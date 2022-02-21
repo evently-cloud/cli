@@ -1,39 +1,11 @@
 import {ChronoField, Instant} from "@js-joda/core"
 import {crc32c} from "@node-rs/crc32"
-import {Transform, TransformCallback} from "stream"
 import {EventBody, UnknownObject, ValidationContext} from "./types"
 
 
-export class ValidationTransformer extends Transform {
-
-  context: ValidationContext
-
-  constructor(private passThrough: boolean, startingContext?: ValidationContext) {
-    super({objectMode: true})
-
-    if (startingContext) {
-      this.context = startingContext
-    } else {
-      this.context = {
-        ledgerId:         "",
-        count:            0,
-        previousEventId:  ""
-      }
-    }
-  }
-
-  _transform(line: string, encoding: BufferEncoding, done: TransformCallback): void {
-    validateEventLineStep(this.context, line)
-    if (this.passThrough) {
-      this.push(`${line}\n`)
-    }
-    done()
-  }
-}
-
 const numberFormatter = new Intl.NumberFormat()
 
-function validateEventLineStep(context: ValidationContext, line: string): void {
+export function validateEventLineStep(context: ValidationContext, line: string): void {
   const event: EventBody = JSON.parse(line)
 
   if (!context.ledgerId) {
