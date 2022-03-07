@@ -14,7 +14,7 @@ describe("ledger:reset", () => {
     },
     // resets the whole ledger
     body:   "{}"
-  }).reply(200, "Ledger reset fully.")
+  }).reply(204, null)
 
   test
     .stdout()
@@ -32,13 +32,13 @@ describe("ledger:reset", () => {
       "Content-Type": "application/json"
     },
     // resets ledger after the mark
-    body:   `{"after":"${ledgerMark}"}}`
-  }).reply(200, "Ledger reset after mark.")
+    body:   `{"after":"${ledgerMark}"}`
+  }).reply(204, null)
 
   test
     .stdout()
     .command(["ledger:reset", "-t", testToken, "-a", ledgerMark])
-    .it("resets ledger fully", (ctx) => {
+    .it("resets ledger after mark", (ctx) => {
       expect(ctx.stdout).to.contain("after")
     })
 })
