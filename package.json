@@ -15,7 +15,6 @@
     "@oclif/plugin-help": "5.1.12",
     "@oclif/plugin-not-found": "2.3.1",
     "@oclif/plugin-update": "3.0.0",
-    "ketting": "7.3.0",
     "undici": "4.15.1"
   },
   "devDependencies": {
