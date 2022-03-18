@@ -23,6 +23,7 @@
     "@types/mocha": "9.1.0",
     "@types/node": "16.11.26",
     "chai": "4.3.6",
+    "env-cmd": "10.1.0",
     "globby": "11.1.0",
     "mocha": "9.2.1",
     "oclif": "2.5.0",
@@ -62,14 +63,22 @@
       "ledger": {
         "description": "Ledger commands"
       }
+    },
+    "update": {
+      "s3": {
+        "host": "https://s3.eu-central-003.backblazeb2.com",
+        "bucket": "evently-cli"
+      }
     }
   },
   "repository": "evently-cloud/cli",
   "scripts": {
     "build": "rm -rf dist && tsc -b",
-    "postpack": "rm -f oclif.manifest.json",
     "prepack": "yarn build && oclif manifest && oclif readme",
+    "pack": "oclif pack tarballs",
+    "postpack": "rm -f oclif.manifest.json",
     "test": "node --no-warnings node_modules/mocha/bin/_mocha --forbid-only \"test/**/*.test.ts\"",
+    "upload": "env-cmd -f .env/b2.env oclif upload tarballs",
     "version": "oclif readme && git add README.md"
   },
   "types": "dist/index.d.ts"
