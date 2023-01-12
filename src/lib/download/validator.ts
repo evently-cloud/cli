@@ -46,7 +46,7 @@ function calculateEventId(eventIn:          EventBody,
   checksum = crc32c(ledgerIdHex, checksum)
   // add timestamp
   const timestamp = Instant.parse(eventIn.timestamp)
-  // ChronoField.MICRO_OF_DAY is not supported
+  // ChronoField.MICRO_OF_DAY is not supported (no *_OF_DAY parts supported)
   const epochSeconds = timestamp.epochSecond() * 1_000_000
   const micros = timestamp.getLong(ChronoField.MICRO_OF_SECOND)
   const tsHex = (epochSeconds + micros)
@@ -107,3 +107,4 @@ function int32ToHex(num: number): string {
     .toString(16)
     .padStart(8, "0")
 }
+

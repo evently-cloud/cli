@@ -4,7 +4,7 @@ import {pipeline} from "stream/promises"
 import {promisify} from "util"
 import {validateLedgerFile} from "./file-ledger"
 import {openHttpLedgerReadStream} from "./http-ledger"
-import {LinesTransformer} from "./lines-transformer"
+import {linesIterator} from "./lines-transformer"
 import {ValidationTransformer} from "./validationTransformer"
 
 const finished = promisify(stream.finished);
@@ -25,7 +25,7 @@ export async function downloadAndValidateLedger(token: string, ledgerFile: strin
 
   await pipeline(
     httpReadStream,
-    new LinesTransformer(),
+    linesIterator,
     new ValidationTransformer(true, context),
     fileWriteStream)
 

@@ -1,6 +1,6 @@
 import * as fs from "fs"
 import {pipeline} from "stream/promises"
-import {LinesTransformer} from "./lines-transformer"
+import {linesIterator} from "./lines-transformer"
 import {ValidationContext} from "./types"
 import {ValidationTransformer} from "./validationTransformer"
 
@@ -11,11 +11,10 @@ export async function validateLedgerFile(path: string): Promise<ValidationContex
   if (fs.existsSync(path)) {
     console.info("loading file %s", path)
     const fileReadStream = fs.createReadStream(path)
-    fileReadStream.setEncoding("utf8")
 
     await pipeline(
       fileReadStream,
-      new LinesTransformer(),
+      linesIterator,
       validator
     )
   } else {

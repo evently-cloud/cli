@@ -3,7 +3,7 @@ import {sendToEvently} from "../evently-connect"
 import {ValidationContext} from "./types"
 
 
-export async function openHttpLedgerReadStream(token: string, context?: ValidationContext): Promise<NodeJS.ReadableStream> {
+export async function openHttpLedgerReadStream(token: string, context?: ValidationContext): Promise<Readable> {
   const after = context?.previousEventId
   const afterMsg = after ? `after eventId ${after}` : "fully"
   const body = after ? JSON.stringify({ after }): "{}"
@@ -25,9 +25,7 @@ export async function openHttpLedgerReadStream(token: string, context?: Validati
   const result = await sendToEvently(token, "/ledgers/download", request)
 
   if (result.status === 200 && result.body) {
-    const reader = Readable.from(result.body)
-    reader.setEncoding("utf8")
-    return reader
+    return Readable.from(result.body)
   }
 
   const message = await result.text()
