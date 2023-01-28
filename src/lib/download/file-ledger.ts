@@ -1,6 +1,6 @@
 import * as fs from "fs"
 import {pipeline} from "stream/promises"
-import {linesIterator} from "./lines-transformer"
+import {linesIterator} from "./json-lines"
 import {ValidationContext} from "./types"
 import {ValidationTransformer} from "./validationTransformer"
 

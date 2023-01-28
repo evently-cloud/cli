@@ -4,7 +4,7 @@ import {pipeline} from "stream/promises"
 import {promisify} from "util"
 import {validateLedgerFile} from "./file-ledger"
 import {openHttpLedgerReadStream} from "./http-ledger"
-import {linesIterator} from "./lines-transformer"
+import {linesIterator} from "./json-lines"
 import {ValidationTransformer} from "./validationTransformer"
 
 const finished = promisify(stream.finished);

@@ -8,8 +8,7 @@ export class ValidationTransformer extends Transform {
   context: ValidationContext
 
   constructor(private passThrough: boolean, startingContext?: ValidationContext) {
-    super({objectMode: true})
-
+    super()
     this.context = startingContext || {
       ledgerId:        "",
       count:           0,
