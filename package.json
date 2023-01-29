@@ -10,12 +10,12 @@
   "dependencies": {
     "@js-joda/core": "5.5.2",
     "@node-rs/crc32": "1.6.0",
-    "@oclif/core": "1.24.0",
-    "@oclif/plugin-commands": "2.2.2",
-    "@oclif/plugin-help": "5.1.22",
-    "@oclif/plugin-not-found": "2.3.14",
-    "@oclif/plugin-update": "3.0.12",
-    "undici": "5.15.0"
+    "@oclif/core": "2.0.7",
+    "@oclif/plugin-commands": "2.2.5",
+    "@oclif/plugin-help": "5.2.2",
+    "@oclif/plugin-not-found": "2.3.17",
+    "@oclif/plugin-update": "3.1.1",
+    "undici": "5.16.0"
   },
   "devDependencies": {
     "@oclif/test": "2.2.20",
