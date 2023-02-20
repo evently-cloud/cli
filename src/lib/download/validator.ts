@@ -3,9 +3,22 @@ import {crc32c} from "@node-rs/crc32"
 import {EventBody, UnknownObject, ValidationContext} from "./types"
 
 
+
+export function linesValidator(passThrough: boolean, context: ValidationContext) {
+  return async function* (lines: AsyncIterable<string>) {
+    for await (const line of lines) {
+      validateEventLineStep(context, line)
+      if (passThrough) {
+        yield `${line}\n`
+      }
+    }
+  }
+}
+
+
 const numberFormatter = new Intl.NumberFormat()
 
-export function validateEventLineStep(context: ValidationContext, line: string): void {
+function validateEventLineStep(context: ValidationContext, line: string): void {
   const event: EventBody = JSON.parse(line)
 
   if (!context.ledgerId) {

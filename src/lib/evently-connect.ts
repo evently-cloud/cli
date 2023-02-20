@@ -14,11 +14,16 @@ export async function sendToEvently(token:    string,
     }
   }
 
-  const result = await fetch(`https://preview.evently.cloud${path}`, options)
+  try {
+    const result = await fetch(`https://preview.evently.cloud${path}`, options)
 
-  if (result.status === 401) {
-    // todo pretty-print error
-    throw new CLIError(`401 Unauthorized, WWW-Authenticate: ${result.headers.get("www-authenticate")}`)
+    if (result.status === 401) {
+      // todo pretty-print error
+      throw new CLIError(`401 Unauthorized, WWW-Authenticate: ${result.headers.get("www-authenticate")}`)
+    }
+    return result
+  } catch (err) {
+    console.error(err)
+    throw err
   }
-  return result
 }
