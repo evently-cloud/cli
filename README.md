@@ -37,13 +37,25 @@ This command provides the ledger’s name and current event count.
 
 ### `ledger:download`
 
+You can use the `ledgers:download` command to download the contents of a ledger to a local file.
+
 ##### Flags
 
-| Flag             | Purpose                                                      | Required |
-| ---------------- | ------------------------------------------------------------ | -------- |
+| Flag             | Purpose                                                                                                                               | Required |
+|------------------|---------------------------------------------------------------------------------------------------------------------------------------|----------|
 | `--file` or `-f` | The path to the ledger download file. The file format is [NDJSON](http://ndjson.org), so the file name can have the `.ndjson` suffix. | Yes      |
 
-You can use the `ledgers:download` command to download the contents of a ledger to a local file. This command will either create a new file, or validate an existing ledger download file before downloading the new events from the ledger and appending them to this file. The command keeps your local ledger copy up-to-date with the Evently cloud’s ledger for you to use as you wish. 
+This command will either create a new file, or validate an existing ledger download file before downloading the new events from the ledger and appending them to this file. The command keeps your local ledger copy up-to-date with the Evently cloud’s ledger for you to use as you wish.
+
+### `ledger:reset`
+
+Resets the ledger, either fully or to a specific point.
+
+##### Flags
+
+| Flag              | Purpose                                                                                                                                  | Required |
+|-------------------|------------------------------------------------------------------------------------------------------------------------------------------|----------|
+| `--after` or `-a` | Denotes where to reset the ledger back to. This value can be either an Event ID or a ledger mark. If omitted, the ledger is reset fully. | No       |
 
 ## CLI Updates
 
