@@ -15,7 +15,7 @@
     "@oclif/plugin-help": "5.2.5",
     "@oclif/plugin-not-found": "2.3.20",
     "@oclif/plugin-update": "3.1.5",
-    "undici": "5.20.0"
+    "ketting": "^7.5.1"
   },
   "devDependencies": {
     "@oclif/test": "2.3.7",
@@ -74,6 +74,7 @@
   "repository": "evently-cloud/cli",
   "scripts": {
     "build": "rm -rf dist && tsc -b",
+    "watch": "tsc --watch",
     "prepack": "yarn build && oclif manifest && oclif readme",
     "pack": "oclif pack tarballs",
     "postpack": "rm -f oclif.manifest.json",

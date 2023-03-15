@@ -1,6 +1,5 @@
-import {sendToEvently} from "../../lib/evently-connect"
 import {TokenAwareCommand} from "../../lib/token-command"
-
+import { initClient } from '../../lib/client';
 
 export default class Ledger extends TokenAwareCommand {
   static description = "Ledger commands"
@@ -12,20 +11,13 @@ name: your-ledger-name, events: count
   ]
 
   async run(): Promise<void> {
-    const {flags} = await this.parse(Ledger)
+    const {flags} = await this.parse(Ledger);
 
-    const token = TokenAwareCommand.validateToken(flags.token)
+    const client = initClient(flags.token);
 
-    const result = await sendToEvently(token, "/ledgers")
+    const ledgersRes = await client.follow('ledgers');
+    const { data } = await ledgersRes.get();
 
-    if (result.status === 200) {
-      const data = await result.json() as any
-
-      const numberFormatter = new Intl.NumberFormat()
-      this.log(`name: '${data.name}', events: ${numberFormatter.format(data.count)}`)
-    } else {
-      const text = await result.text()
-      this.error(text)
-    }
+    const numberFormatter = new Intl.NumberFormat();
   }
 }

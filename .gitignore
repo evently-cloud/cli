@@ -10,3 +10,6 @@ node_modules
 oclif.manifest.json
 /.idea
 /.env
+
+# Vim swap files
+.*.swp

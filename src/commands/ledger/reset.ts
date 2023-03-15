@@ -1,7 +1,6 @@
 import {Flags} from "@oclif/core"
-import {sendToEvently} from "../../lib/evently-connect"
 import {TokenAwareCommand} from "../../lib/token-command"
-
+import {initClient} from '../../lib/client';
 
 export default class Reset extends TokenAwareCommand {
   static description = "Reset a Ledger"
@@ -24,28 +23,22 @@ Reset ledger fully.
   async run(): Promise<void> {
     const {flags} = await this.parse(Reset)
 
-    const token = TokenAwareCommand.validateToken(flags.token)
+    const client = initClient(flags.token);
     const {after} = flags
     const body = after
       ? `{"after":"${after}"}`
       : "{}"
 
-    const response = await sendToEvently(token, "/ledgers/reset", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body
-    })
+    const resetRes = await client
+      .follow('ledgers')
+      .follow('reset');
 
-    if (response.status === 204) {
-      const logMsg = after
-        ? `after ${after}`
-        : "fully"
-      this.log("Reset ledger %s. If you have downloaded this ledger, you will need to delete the downloaded file as it may no longer be valid.", logMsg)
-    } else {
-      const text = await response.text()
-      this.error(text)
-    }
+    const response = await resetRes.post({data: body});
+    const logMsg = after
+      ? `after ${after}`
+      : "fully"
+    this.log("Reset ledger %s. If you have downloaded this ledger, you will need to delete the downloaded file as it may no longer be valid.", logMsg)
+
   }
+
 }
