@@ -20,7 +20,7 @@ export async function openHttpLedgerReadStream(context?: ValidationContext): Pro
       "Content-Type":     "application/json",
       "Accept":           "application/x-ndjson",
       "Prefer":           "return=representation",
-/*      "Accept-Encoding":  "br"*/
+      "Accept-Encoding":  "br"
     },
     body
   });
@@ -29,7 +29,7 @@ export async function openHttpLedgerReadStream(context?: ValidationContext): Pro
     throw new Error('No response body received');
   }
 
-  /**
+  /*
    * Currently we're using node-fetch which uses actual Node Readable
    * streams.
    *
