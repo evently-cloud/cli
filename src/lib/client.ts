@@ -5,8 +5,7 @@ import {TokenAwareCommand} from "./token-command"
 const NOT_SET = "NOT-SET"
 
 /**
- * This is our memoized client. Note that it currently won't automatically
- * be aware that a new token should result in a new client.
+ * This is our memoized client
  */
 let client: Client|null = null;
 
