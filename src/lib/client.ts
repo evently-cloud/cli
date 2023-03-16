@@ -9,6 +9,9 @@ const NOT_SET = "NOT-SET"
  */
 let client: Client|null = null;
 
+type FetchMiddleware = (req: Request) => Promise<Response> | Response;
+let mockCallback: FetchMiddleware | null = null;
+
 /**
  * Sets up and returns a fully initialized Ketting client.
  */
@@ -38,10 +41,27 @@ export function initClient(token: string): Client {
 
   client = new Client('https://preview.evently.cloud/');
   client.use(bearerAuth(token));
+  client.use( async( req, next) => {
+
+    if (mockCallback) {
+      return mockCallback(req);
+    } else {
+      return next(req);
+    }
+
+  });
 
   return client;
 
 }
 
+/**
+ * Sets a callback that globally intercepts all HTTP traffic.
+ *
+ * This is used for unittesting.
+ */
+export function setMockCallback(cb: FetchMiddleware) {
 
+  mockCallback = cb;
 
+}

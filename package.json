@@ -22,6 +22,7 @@
     "@types/chai": "4.3.4",
     "@types/mocha": "10.0.1",
     "@types/node": "18.14.0",
+    "@types/node-fetch": "^2.6.2",
     "chai": "4.3.7",
     "env-cmd": "10.1.0",
     "globby": "11.1.0",
@@ -78,7 +79,7 @@
     "prepack": "yarn build && oclif manifest && oclif readme",
     "pack": "oclif pack tarballs",
     "postpack": "rm -f oclif.manifest.json",
-    "test": "node --no-warnings node_modules/mocha/bin/_mocha --forbid-only \"test/**/*.test.ts\"",
+    "test": "mocha --forbid-only",
     "upload": "env-cmd -f .env/b2.env oclif upload tarballs",
     "version": "oclif readme && git add README.md"
   },
