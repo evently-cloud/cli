@@ -1,23 +1,43 @@
 import {expect, test} from "@oclif/test"
 
+import { setMockCallback } from '../../../src/lib/client';
+import { buildResponse, expectRequest } from '../../helpers/http';
 const testToken = "test-token"
 const ledgerMark = "a-ledger-mark"
-
 
 describe("ledger:reset", () => {
 
   it('should work', () => {
 
-    // @ts-ignore
-    global.mockEvently.intercept({
-      path: "/ledgers/reset",
-      method: "POST",
-      headers: {
-        authorization: `Bearer ${testToken}`
-      },
-      // resets the whole ledger
-      body:   "{}"
-    }).reply(204, null)
+    setMockCallback( (async (req: Request) => {
+
+      expect(req.headers.get('Authorization')).to.equal(`Bearer ${testToken}`);
+      const path = new URL(req.url).pathname;
+      switch(path) {
+        case '/' :
+          return buildResponse({
+            links: [{rel: 'ledgers', href: '/ledgers'}]
+          });
+        case '/ledgers' :
+          return buildResponse({
+            links: [{rel: 'download', href: '/ledgers/reset'}]
+          });
+        case '/ledgers/reset' :
+          expectRequest(req, {
+            path: '/ledgers/reset',
+            method: 'POST',
+            body: {
+              after: ledgerMark,
+            }
+          });
+          return buildResponse({
+            status: 204,
+          });
+        default :
+          return new Response('{}', {status: 501});
+      }
+
+    }));
 
     test
       .stdout()
@@ -26,17 +46,6 @@ describe("ledger:reset", () => {
         expect(ctx.stdout).to.contain("fully")
       })
 
-    // @ts-ignore
-    global.mockEvently.intercept({
-      path: "/ledgers/reset",
-      method: "POST",
-      headers: {
-        authorization: `Bearer ${testToken}`,
-        "Content-Type": "application/json"
-      },
-      // resets ledger after the mark
-      body:   `{"after":"${ledgerMark}"}`
-    }).reply(204, null)
 
     test
       .stdout()
