@@ -19,5 +19,7 @@ name: your-ledger-name, events: count
     const { data } = await ledgersRes.get();
 
     const numberFormatter = new Intl.NumberFormat();
+    this.log(`name: '${data.name}', events: ${numberFormatter.format(data.count)}`)
+
   }
 }
