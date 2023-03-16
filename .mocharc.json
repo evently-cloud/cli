@@ -1,8 +1,7 @@
 {
   "require": [
     "test/helpers/init.js",
-    "ts-node/register",
-    "test/helpers/ketting-mock.ts"
+    "ts-node/register"
   ],
   "watch-extensions": [
     "ts"

@@ -1,19 +1,30 @@
 import {expect, test} from "@oclif/test"
 
+import { setMockCallback } from '../../../src/lib/client';
+import { buildResponse, expectRequest } from '../../helpers/http';
+const testToken = "test-token"
 
 describe("ledger", () => {
   it('should work', () => {
-    // @ts-ignore
-    global.mockEvently.intercept({
-      path: "/ledgers",
-      method: "GET",
-      headers: {
-        authorization: "Bearer test-token"
+
+    setMockCallback( (async (req: Request) => {
+
+      expect(req.headers.get('Authorization')).to.equal(`Bearer ${testToken}`);
+      const path = new URL(req.url).pathname;
+      switch(path) {
+
+        case '/ledgers' :
+          return buildResponse({
+            body: {
+              name: "test-ledger",
+              count: 10_000
+            },
+          });
+        default :
+          return new Response('{}', {status: 501});
       }
-    }).reply(200, {
-      name: "test-ledger",
-      count: 10_000
-    })
+
+    }));
 
     test
     .stdout()

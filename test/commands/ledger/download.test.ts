@@ -1,6 +1,7 @@
 import {expect, test} from "@oclif/test"
 import * as fs from "fs"
 import { pipeline } from 'stream/promises';
+import { buildResponse, expectRequest } from '../../helpers/http';
 
 const tempDir = "./tmp/test"
 const ledgerFile = `${tempDir}/test-download.ndjson`
@@ -27,14 +28,20 @@ describe("ledger:download", async () => {
       const path = new URL(req.url).pathname;
       switch(path) {
         case '/ledgers/download' :
-          expect(req.method).to.equal('POST');
-          expect(req.headers.get('Prefer')).to.equal('return=representation');
+
+          expectRequest(req, {
+            path: '/ledgers/download',
+            method: 'POST',
+            headers: {
+              'Prefer': 'return=representation',
+            }
+          });
 
           const body = await req.json();
 
           if (body.after === undefined) {
-            return new Response(
-              JSON.stringify({
+            return buildResponse({
+              body: {
                 entity:    "test",
                 key:       "first-event-key",
                 event:     "tested",
@@ -47,15 +54,12 @@ describe("ledger:download", async () => {
                   tested:      true,
                   description: "This first event is for validating ledger downloads."
                 }
-              }),
-              {
-                status: 200
               }
-            );
+            });
           }
           if (body.after === firstEventId) {
-            return new Response(
-              JSON.stringify({
+            return buildResponse({
+              body: {
                 entity:    "test",
                 key:       "second-event-key",
                 event:     "tested",
@@ -68,42 +72,18 @@ describe("ledger:download", async () => {
                   tested:      true,
                   description: "This is a second event after the initial download."
                 }
-              }),
-              {
-                status: 200
               }
-            );
+            });
             break;
           } else throw new Error('Unexpected body');
         case '/' : 
-          return new Response(
-            JSON.stringify({
-              _links: {
-                ledgers: { href: '/ledgers' },
-              }
-            }),
-            {
-              status: 200,
-              headers: {
-                'Content-Type': 'application/hal+json'
-              },
-            }
-          );
+          return buildResponse({
+            links: [{rel: 'ledgers', href: '/ledgers'}]
+          });
         case '/ledgers' :
-          return new Response(
-            JSON.stringify({
-              _links: {
-                download: { href: '/ledgers/download' },
-              }
-            }),
-            {
-              status: 200,
-              headers: {
-                'Content-Type': 'application/hal+json'
-              },
-            }
-          );
-          
+          return buildResponse({
+            links: [{rel: 'download', href: '/ledgers/download'}]
+          });
         default :
           return new Response('{}', {status: 501});
       }
