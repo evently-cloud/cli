@@ -1,13 +1,13 @@
 import {Flags} from "@oclif/core"
 import {downloadAndValidateLedger} from "../../lib/download"
 import {TokenAwareCommand} from "../../lib/token-command"
-
+import { initClient } from '../../lib/client';
 
 export default class Download extends TokenAwareCommand {
   static description = "Download a Ledger"
 
   static examples = [
-    `$ evently ledger download
+    `$ evently ledger:download
 Validated 13,438 ledger events.
 `]
 
@@ -24,9 +24,9 @@ Validated 13,438 ledger events.
   async run(): Promise<void> {
     const {flags} = await this.parse(Download)
 
-    const token = TokenAwareCommand.validateToken(flags.token)
+    const client = initClient(flags.token);
 
-    const count = await downloadAndValidateLedger(token, flags.file)
+    const count = await downloadAndValidateLedger(flags.file)
 
     const numberFormatter = new Intl.NumberFormat()
     this.log("Validated %s ledger events.", numberFormatter.format(count))

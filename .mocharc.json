@@ -6,6 +6,7 @@
   "watch-extensions": [
     "ts"
   ],
+  "extension": [ "js", "ts" ],
   "recursive": true,
   "reporter": "spec",
   "timeout": 60000
