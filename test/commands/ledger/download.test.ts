@@ -1,6 +1,5 @@
 import {expect, test} from '@oclif/test'
 import * as fs from 'fs'
-import { pipeline } from 'stream/promises'
 import { buildResponse, expectRequest } from '../../helpers/http'
 
 const tempDir = './tmp/test'
@@ -8,7 +7,7 @@ const ledgerFile = `${tempDir}/test-download.ndjson`
 const testToken = 'test-token'
 const firstEventId = '0005d5813bf9c4498e2a8b74e95bff80'
 
-import { setMockCallback, initClient } from '../../../src/lib/client'
+import { setMockCallback } from '../../../src/lib/client'
 
 describe('ledger:download', async () => {
 
@@ -27,7 +26,7 @@ describe('ledger:download', async () => {
       expect(req.headers.get('Authorization')).to.equal(`Bearer ${testToken}`)
       const path = new URL(req.url).pathname
       switch(path) {
-        case '/ledgers/download' :
+        case '/ledgers/download' : {
 
           expectRequest(req, {
             path: '/ledgers/download',
@@ -76,6 +75,7 @@ describe('ledger:download', async () => {
             })
             break
           } else throw new Error('Unexpected body')
+        }
         case '/' :
           return buildResponse({
             links: [{rel: 'ledgers', href: '/ledgers'}]

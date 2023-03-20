@@ -33,7 +33,7 @@ Reset ledger fully.
       .follow('ledgers')
       .follow('reset')
 
-    const response = await resetRes.post({data: body})
+    await resetRes.post({data: body})
     const logMsg = after
       ? `after ${after}`
       : 'fully'

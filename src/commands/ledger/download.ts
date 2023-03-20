@@ -24,7 +24,7 @@ Validated 13,438 ledger events.
   async run(): Promise<void> {
     const {flags} = await this.parse(Download)
 
-    const client = initClient(flags.token)
+    initClient(flags.token)
 
     const count = await downloadAndValidateLedger(flags.file)
 

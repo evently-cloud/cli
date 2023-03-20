@@ -2,8 +2,6 @@ import { Client, bearerAuth } from 'ketting'
 import {CLIError} from '@oclif/core/lib/parser/errors'
 import {TokenAwareCommand} from './token-command'
 
-const NOT_SET = 'NOT-SET'
-
 /**
  * This is our memoized client
  */

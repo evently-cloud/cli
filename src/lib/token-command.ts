@@ -1,5 +1,4 @@
 import {Command, Flags} from '@oclif/core'
-import {CLIError} from '@oclif/core/lib/parser/errors'
 
 const NOT_SET = 'NOT-SET'
 

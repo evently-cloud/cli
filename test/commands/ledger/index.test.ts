@@ -1,7 +1,7 @@
 import {expect, test} from '@oclif/test'
 
 import { setMockCallback } from '../../../src/lib/client'
-import { buildResponse, expectRequest } from '../../helpers/http'
+import { buildResponse } from '../../helpers/http'
 const testToken = 'test-token'
 
 describe('ledger', () => {
