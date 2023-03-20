@@ -1,6 +1,6 @@
-import {ChronoField, Instant} from "@js-joda/core"
-import {crc32c} from "@node-rs/crc32"
-import {EventBody, UnknownObject, ValidationContext} from "./types"
+import {ChronoField, Instant} from '@js-joda/core'
+import {crc32c} from '@node-rs/crc32'
+import {EventBody, UnknownObject, ValidationContext} from './types'
 
 
 
@@ -24,18 +24,18 @@ function validateEventLineStep(context: ValidationContext, line: string): void {
   if (!context.ledgerId) {
     // Calculate the ledger ID from first event
     context.ledgerId = calculateLedgerId(event)
-    context.previousEventId = context.ledgerId.padStart(32, "0")
+    context.previousEventId = context.ledgerId.padStart(32, '0')
   }
 
   const eventId = calculateEventId(event, context.ledgerId, context.previousEventId)
   context.count++
 
   if (event.eventId !== eventId) {
-    console.error("IDs at event #%s not the same!", numberFormatter.format(context.count))
-    console.error("  from Event: %s", readableEventId(event.eventId))
-    console.error("  from calc:  %s", readableEventId(eventId))
+    console.error('IDs at event #%s not the same!', numberFormatter.format(context.count))
+    console.error('  from Event: %s', readableEventId(event.eventId))
+    console.error('  from calc:  %s', readableEventId(eventId))
     console.error(JSON.stringify(event, null, 2))
-    throw new Error("Ledger validation failed.")
+    throw new Error('Ledger validation failed.')
   }
   context.previousEventId = eventId
   if (context.count % 10_000 === 0) {
@@ -51,8 +51,8 @@ function calculateLedgerId(firstEvent: EventBody): string {
 
 
 function calculateEventId(eventIn:          EventBody,
-                          ledgerIdHex:      string,
-                          previousEventId:  string): string {
+  ledgerIdHex:      string,
+  previousEventId:  string): string {
   // calculate the base checksum
   let checksum = calculateChecksumWithoutTimestamp(eventIn)
   // add LedgerId
@@ -64,7 +64,7 @@ function calculateEventId(eventIn:          EventBody,
   const micros = timestamp.getLong(ChronoField.MICRO_OF_SECOND)
   const tsHex = (epochSeconds + micros)
     .toString(16)
-    .padStart(16, "0")
+    .padStart(16, '0')
   checksum = crc32c(tsHex, checksum)
   checksum = crc32c(previousEventId, checksum)
   const checksumHex = int32ToHex(checksum)
@@ -101,7 +101,7 @@ function sortObject(inObject: UnknownObject): object {
 }
 
 function sortUnknown(inValue: unknown): unknown {
-  if (typeof inValue === "object") {
+  if (typeof inValue === 'object') {
     if (Array.isArray(inValue)) {
       const sorted = []
       for (const value of inValue) {
@@ -118,6 +118,6 @@ function sortUnknown(inValue: unknown): unknown {
 function int32ToHex(num: number): string {
   return (num >>> 0)
     .toString(16)
-    .padStart(8, "0")
+    .padStart(8, '0')
 }
 

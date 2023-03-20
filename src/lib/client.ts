@@ -1,16 +1,16 @@
-import { Client, bearerAuth } from 'ketting';
-import {CLIError} from "@oclif/core/lib/parser/errors"
-import {TokenAwareCommand} from "./token-command"
+import { Client, bearerAuth } from 'ketting'
+import {CLIError} from '@oclif/core/lib/parser/errors'
+import {TokenAwareCommand} from './token-command'
 
-const NOT_SET = "NOT-SET"
+const NOT_SET = 'NOT-SET'
 
 /**
  * This is our memoized client
  */
-let client: Client|null = null;
+let client: Client|null = null
 
 type FetchMiddleware = (req: Request) => Promise<Response> | Response;
-let mockCallback: FetchMiddleware | null = null;
+let mockCallback: FetchMiddleware | null = null
 
 /**
  * Sets up and returns a fully initialized Ketting client.
@@ -18,40 +18,40 @@ let mockCallback: FetchMiddleware | null = null;
 export function getClient(): Client {
 
   if (!client) {
-    throw new Error('Client was not yet initialized');
+    throw new Error('Client was not yet initialized')
   }
-  return client;
+  return client
 
 }
 
 /**
  * Sets up a Ketting client for the first time.
  */
-export function initClient(token: string): Client { 
+export function initClient(token: string): Client {
 
   if (token === TokenAwareCommand.flags.token.default || !token) {
-    throw new CLIError("missing access token", {
-      message: "Evently access token missing.",
+    throw new CLIError('missing access token', {
+      message: 'Evently access token missing.',
       suggestions: [
-        "Pass as a flag (--token or -t)",
+        'Pass as a flag (--token or -t)',
         `Set the ${TokenAwareCommand.flags.token.env} environment variable to the access token.`
       ]
     })
   }
 
-  client = new Client('https://preview.evently.cloud/');
-  client.use(bearerAuth(token));
+  client = new Client('https://preview.evently.cloud/')
+  client.use(bearerAuth(token))
   client.use( async( req, next) => {
 
     if (mockCallback) {
-      return mockCallback(req);
+      return mockCallback(req)
     } else {
-      return next(req);
+      return next(req)
     }
 
-  });
+  })
 
-  return client;
+  return client
 
 }
 
@@ -62,6 +62,6 @@ export function initClient(token: string): Client {
  */
 export function setMockCallback(cb: FetchMiddleware) {
 
-  mockCallback = cb;
+  mockCallback = cb
 
 }
