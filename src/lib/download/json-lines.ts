@@ -1,14 +1,14 @@
-import {Readable} from "stream"
+import {Readable} from 'stream'
 
 
 export async function* linesIterator(reader: Readable): AsyncGenerator<string> {
   // Stream chunks are not broken along JSON lines, so use partial to store remainder text between chunks.
-  let partial = ""
+  let partial = ''
   for await (const chunk of reader) {
     const block = partial + chunk
-    const lines = block.split("\n")
+    const lines = block.split('\n')
     // last line will be either a partial line or an empty string (for complete blocks)
-    partial = lines.pop() ?? ""
+    partial = lines.pop() ?? ''
 
     for (const line of lines) {
       yield line
