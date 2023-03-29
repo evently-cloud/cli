@@ -1,19 +1,19 @@
-import * as fs from "fs"
-import {pipeline} from "stream/promises"
-import {linesIterator} from "./json-lines"
-import {ValidationContext} from "./types"
-import {linesValidator} from "./validator"
+import * as fs from 'fs'
+import {pipeline} from 'stream/promises'
+import {linesIterator} from './json-lines'
+import {ValidationContext} from './types'
+import {linesValidator} from './validator'
 
 
 export async function validateLedgerFile(path: string): Promise<ValidationContext> {
   const context = {
-    ledgerId:        "",
+    ledgerId:        '',
     count:           0,
-    previousEventId: ""
+    previousEventId: ''
   }
 
   if (fs.existsSync(path)) {
-    console.info("loading file %s", path)
+    console.info('loading file %s', path)
     const fileReadStream = fs.createReadStream(path)
 
     await pipeline(
@@ -22,7 +22,7 @@ export async function validateLedgerFile(path: string): Promise<ValidationContex
       linesValidator(false, context)
     )
   } else {
-    console.info("no ledger file at %s", path)
+    console.info('no ledger file at %s', path)
   }
 
   return context

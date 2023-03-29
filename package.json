@@ -22,8 +22,11 @@
     "@types/chai": "4.3.4",
     "@types/mocha": "10.0.1",
     "@types/node": "18.14.0",
+    "@typescript-eslint/eslint-plugin": "^5.56.0",
+    "@typescript-eslint/parser": "^5.56.0",
     "chai": "4.3.7",
     "env-cmd": "10.1.0",
+    "eslint": "^8.36.0",
     "globby": "11.1.0",
     "mocha": "10.2.0",
     "oclif": "3.6.5",
@@ -80,6 +83,8 @@
     "postpack": "rm -f oclif.manifest.json",
     "test": "mocha --forbid-only",
     "upload": "env-cmd -f .env/b2.env oclif upload tarballs",
+    "lint": "eslint --quiet 'src/**/*.ts' 'test/**/*.ts'",
+    "lint:fix": "eslint --fix --quiet 'src/**/*.ts' 'test/**/*.ts'",
     "version": "oclif readme && git add README.md"
   },
   "types": "dist/index.d.ts"

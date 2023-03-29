@@ -1,13 +1,13 @@
-import * as fs from "fs"
-import * as stream from "stream"
-import {pipeline} from "stream/promises"
-import {promisify} from "util"
-import {validateLedgerFile} from "./file-ledger"
-import {openHttpLedgerReadStream} from "./http-ledger"
-import {linesIterator} from "./json-lines"
-import {linesValidator} from "./validator"
+import * as fs from 'fs'
+import * as stream from 'stream'
+import {pipeline} from 'stream/promises'
+import {promisify} from 'util'
+import {validateLedgerFile} from './file-ledger'
+import {openHttpLedgerReadStream} from './http-ledger'
+import {linesIterator} from './json-lines'
+import {linesValidator} from './validator'
 
-const finished = promisify(stream.finished);
+const finished = promisify(stream.finished)
 
 
 export async function downloadAndValidateLedger(ledgerFile: string): Promise<number> {
@@ -18,9 +18,9 @@ export async function downloadAndValidateLedger(ledgerFile: string): Promise<num
   const httpReadStream = await openHttpLedgerReadStream(context)
 
   const fileWriteStream = fs.createWriteStream(ledgerFile, {
-    encoding: "utf8",
+    encoding: 'utf8',
     // append
-    flags:    "a"
+    flags:    'a'
   })
 
   await pipeline(

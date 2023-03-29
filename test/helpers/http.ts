@@ -1,9 +1,9 @@
-import {expect} from "@oclif/test";
-import {Link} from 'ketting';
+import {expect} from '@oclif/test'
+import {Link} from 'ketting'
 
 async function expectBody(message: Request|Response, body: any) {
 
-  expect(await message.json()).to.deep.equal(body);
+  expect(await message.json()).to.deep.equal(body)
 
 }
 
@@ -19,16 +19,16 @@ type RequestShape = {
  */
 export async function expectRequest(request: Request, shape: RequestShape) {
 
-  expect(request.method).to.equal(shape.method);
-  expect(new URL(request.url).pathname).to.equal(shape.path);
+  expect(request.method).to.equal(shape.method)
+  expect(new URL(request.url).pathname).to.equal(shape.path)
 
   if (shape.headers) {
     for(const [key, value] of Object.entries(shape.headers)) {
-      expect(request.headers.get(key)).to.equal(value);
+      expect(request.headers.get(key)).to.equal(value)
     }
   }
   if ('body' in shape) {
-    expectBody(request, shape.body);
+    expectBody(request, shape.body)
   }
 
 }
@@ -36,8 +36,8 @@ export async function expectRequest(request: Request, shape: RequestShape) {
 
 type ResponseOptions = {
   status?: number;
-  body?: Record<string, any>,
-  links?: Omit<Link,'context'>[],
+  body?: Record<string, any>;
+  links?: Omit<Link,'context'>[];
 };
 
 /**
@@ -47,14 +47,14 @@ export function buildResponse(options: ResponseOptions): Response {
 
   const body = {
     ...options.body,
-  };
+  }
   if (options.links) {
-    body._links = {};
+    body._links = {}
     for(const { rel, ...link} of options.links) {
       if (!(rel in body._links)) {
-        body._links[rel] = [];
+        body._links[rel] = []
       }
-      body._links[rel].push(link);
+      body._links[rel].push(link)
     }
   }
 
@@ -66,6 +66,6 @@ export function buildResponse(options: ResponseOptions): Response {
         'Content-Type': 'application/hal+json',
       }
     },
-  );
+  )
 
 }
