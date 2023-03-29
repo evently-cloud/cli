@@ -38,6 +38,7 @@ type ResponseOptions = {
   status?: number;
   body?: Record<string, any>;
   links?: Omit<Link,'context'>[];
+  headers?: Record<string,string>;
 };
 
 /**
@@ -64,6 +65,7 @@ export function buildResponse(options: ResponseOptions): Response {
       status: options.status ?? 200,
       headers: {
         'Content-Type': 'application/hal+json',
+        ...options.headers,
       }
     },
   )

@@ -65,6 +65,9 @@
     "topics": {
       "ledger": {
         "description": "Ledger commands"
+      },
+      "registry": {
+        "description": "Work with the event type registry"
       }
     },
     "update": {
