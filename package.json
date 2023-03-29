@@ -1,5 +1,5 @@
 {
-  "name": "evently-cli",
+  "name": "@evently-cloud/cli",
   "description": "Evently.cloud CLI tools to develop applications and manage your ledgers.",
   "version": "0.0.1",
   "author": "Evently",
