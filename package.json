@@ -81,7 +81,7 @@
   "scripts": {
     "build": "rm -rf dist && tsc -b",
     "watch": "tsc --watch",
-    "prepack": "yarn build && oclif manifest && oclif readme",
+    "prepack": "npm run build && oclif manifest && oclif readme",
     "pack": "oclif pack tarballs",
     "postpack": "rm -f oclif.manifest.json",
     "test": "mocha --forbid-only",
