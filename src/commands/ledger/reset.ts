@@ -6,7 +6,7 @@ export default class Reset extends TokenAwareCommand {
   static description = 'Reset a Ledger'
 
   static examples = [
-    `$ evently ledger reset
+    `$ evently ledger:reset
 Reset ledger fully.
 `]
 
