@@ -37,7 +37,7 @@ export function initClient(token: string): Client {
     })
   }
 
-  client = new Client('https://preview.evently.cloud/')
+  client = new Client(process.env.EVENTLY_BOOKMARK ?? 'https://preview.evently.cloud/')
   client.use(bearerAuth(token))
   client.use( async( req, next) => {
 
