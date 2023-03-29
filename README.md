@@ -5,62 +5,232 @@ This package contains the source code for the evently command line interface. Th
 
 The CLI’s bin name is `evently` and can be used from your terminal. To learn more about the available commands, run the `help` command:
 
-```shell
-$ evently help
+## Installation
+
+The easiest is way to use this is to install it globally with `npm`:
+
+```sh
+npm install --global @evently-cloud/cli
 ```
 
-### Access Token
+This requires [Node](https://nodejs.org/en) being installed on your system.
 
-Most evently commands will need the API access token in order to function. This can be passed to the command as an environment variable or as a command flag.
+For one-off uses you can also use the `npx` command to use the cli:
 
-##### Environment variable: `EVENTLY_TOKEN`
+```sh
+npx @evently-cloud/cli
+```
 
-This is the most convenient approach as the CLI will reuse it for every command. Consult your shell to learn how to set this up, but generally it will look like this:
+## Authenticating
+
+Most evently commands will need the API access token in order to function.
+You can request one via [the form on evently.cloud](https://evently.cloud).
+
+After you obtained the token, you can either pass it to every command using
+the `-t` option, but you are recommended to set it via the `EVENTLY_TOKEN`
+environment variable instead.
+
+For example, you can add the following statement to your `.bash_profile` or `.zshrc`:
 
 ```sh
 export EVENTLY_TOKEN="your-token-here"
 ```
 
-##### CLI flag: `--token` or `-t`
 
-Useful for scripts or for accessing more than one ledger in a session.
-
-`$ evently -t your-token-here`
-
-The flag will override the environment variable, if set, for this command.
+## Usage
+<!-- usage -->
+```sh-session
+$ npm install -g @evently-cloud/cli
+$ evently COMMAND
+running command...
+$ evently (--version)
+@evently-cloud/cli/0.1.0 linux-x64 node-v18.15.0
+$ evently --help [COMMAND]
+USAGE
+  $ evently COMMAND
+...
+```
+<!-- usagestop -->
 
 ## Commands
+<!-- commands -->
+* [`evently commands`](#evently-commands)
+* [`evently help [COMMANDS]`](#evently-help-commands)
+* [`evently ledger`](#evently-ledger)
+* [`evently ledger:download`](#evently-ledgerdownload)
+* [`evently ledger:reset`](#evently-ledgerreset)
+* [`evently registry:new`](#evently-registrynew)
+* [`evently update [CHANNEL]`](#evently-update-channel)
 
-### `ledger`
+## `evently commands`
 
-This command provides the ledger’s name and current event count. 
+list all the commands
 
-### `ledger:download`
+```
+USAGE
+  $ evently commands [--json] [-h] [--hidden] [--tree] [--columns <value> | -x] [--sort <value>] [--filter
+    <value>] [--output csv|json|yaml |  | [--csv | --no-truncate]] [--no-header | ]
 
-You can use the `ledgers:download` command to download the contents of a ledger to a local file.
+FLAGS
+  -h, --help         Show CLI help.
+  -x, --extended     show extra columns
+  --columns=<value>  only show provided columns (comma-separated)
+  --csv              output is csv format [alias: --output=csv]
+  --filter=<value>   filter property by partial string matching, ex: name=foo
+  --hidden           show hidden commands
+  --no-header        hide table header from output
+  --no-truncate      do not truncate output to fit screen
+  --output=<option>  output in a more machine friendly format
+                     <options: csv|json|yaml>
+  --sort=<value>     property to sort by (prepend '-' for descending)
+  --tree             show tree of commands
 
-##### Flags
+GLOBAL FLAGS
+  --json  Format output as json.
 
-| Flag             | Purpose                                                                                                                               | Required |
-|------------------|---------------------------------------------------------------------------------------------------------------------------------------|----------|
-| `--file` or `-f` | The path to the ledger download file. The file format is [NDJSON](http://ndjson.org), so the file name can have the `.ndjson` suffix. | Yes      |
+DESCRIPTION
+  list all the commands
+```
 
-This command will either create a new file, or validate an existing ledger download file before downloading the new events from the ledger and appending them to this file. The command keeps your local ledger copy up-to-date with the Evently cloud’s ledger for you to use as you wish.
+_See code: [@oclif/plugin-commands](https://github.com/oclif/plugin-commands/blob/v2.2.10/src/commands/commands.ts)_
 
-### `ledger:reset`
+## `evently help [COMMANDS]`
 
-Resets the ledger, either fully or to a specific point.
+Display help for evently.
 
-##### Flags
+```
+USAGE
+  $ evently help [COMMANDS] [-n]
 
-| Flag              | Purpose                                                                                                                                  | Required |
-|-------------------|------------------------------------------------------------------------------------------------------------------------------------------|----------|
-| `--after` or `-a` | Denotes where to reset the ledger back to. This value can be either an Event ID or a ledger mark. If omitted, the ledger is reset fully. | No       |
+ARGUMENTS
+  COMMANDS  Command to show help for.
 
-## CLI Updates
+FLAGS
+  -n, --nested-commands  Include all nested commands in the output.
 
-This CLI is self-updating, so once you have installed it, the tool itself can be updated without downloading an installer again.
+DESCRIPTION
+  Display help for evently.
+```
 
-To update, run this command:
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.2.5/src/commands/help.ts)_
 
-`$ evently update`
+## `evently ledger`
+
+Ledger commands
+
+```
+USAGE
+  $ evently ledger [-t <value>]
+
+FLAGS
+  -t, --token=<value>  [default: NOT-SET] Access token for your ledger.
+
+DESCRIPTION
+  Ledger commands
+
+EXAMPLES
+  $ evently ledger
+  name: your-ledger-name, events: count
+```
+
+_See code: [dist/commands/ledger/index.ts](https://github.com/evently-cloud/cli/blob/v0.1.0/dist/commands/ledger/index.ts)_
+
+## `evently ledger:download`
+
+Download a Ledger
+
+```
+USAGE
+  $ evently ledger:download -f <value> [-t <value>]
+
+FLAGS
+  -f, --file=<value>   (required) File to download / append Ledger to.
+  -t, --token=<value>  [default: NOT-SET] Access token for your ledger.
+
+DESCRIPTION
+  Download a Ledger
+
+EXAMPLES
+  $ evently ledger:download
+  Validated 13,438 ledger events.
+```
+
+_See code: [dist/commands/ledger/download.ts](https://github.com/evently-cloud/cli/blob/v0.1.0/dist/commands/ledger/download.ts)_
+
+## `evently ledger:reset`
+
+Reset a Ledger
+
+```
+USAGE
+  $ evently ledger:reset [-t <value>] [-a <value>]
+
+FLAGS
+  -a, --after=<value>  Ledger Mark / Event ID to reset ledger after.
+  -t, --token=<value>  [default: NOT-SET] Access token for your ledger.
+
+DESCRIPTION
+  Reset a Ledger
+
+EXAMPLES
+  $ evently ledger:reset
+  Reset ledger fully.
+```
+
+_See code: [dist/commands/ledger/reset.ts](https://github.com/evently-cloud/cli/blob/v0.1.0/dist/commands/ledger/reset.ts)_
+
+## `evently registry:new`
+
+```
+USAGE
+  $ evently registry:new -e <value> -n <value> [-t <value>]
+
+FLAGS
+  -e, --event=<value>   (required) Event name
+  -n, --entity=<value>  (required) Entity name
+  -t, --token=<value>   [default: NOT-SET] Access token for your ledger.
+
+EXAMPLES
+  $ evently registry:add
+  Created a new entity event at https://preview.evently.cloud/registry/[entity]/[event]
+```
+
+_See code: [dist/commands/registry/new.ts](https://github.com/evently-cloud/cli/blob/v0.1.0/dist/commands/registry/new.ts)_
+
+## `evently update [CHANNEL]`
+
+update the evently CLI
+
+```
+USAGE
+  $ evently update [CHANNEL] [-a] [-v <value> | -i] [--force]
+
+FLAGS
+  -a, --available        Install a specific version.
+  -i, --interactive      Interactively select version to install. This is ignored if a channel is provided.
+  -v, --version=<value>  Install a specific version.
+  --force                Force a re-download of the requested version.
+
+DESCRIPTION
+  update the evently CLI
+
+EXAMPLES
+  Update to the stable channel:
+
+    $ evently update stable
+
+  Update to a specific version:
+
+    $ evently update --version 1.0.0
+
+  Interactively select version:
+
+    $ evently update --interactive
+
+  See available versions:
+
+    $ evently update --available
+```
+
+_See code: [@oclif/plugin-update](https://github.com/oclif/plugin-update/blob/v3.1.5/src/commands/update.ts)_
+<!-- commandsstop -->

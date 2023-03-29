@@ -1,6 +1,12 @@
 Changelog
 =========
 
+0.1.1 (????-??-??)
+------------------
+
+* Auto-generate readme with oclif.
+
+
 0.1.0 (2023-03-29)
 ------------------
 
@@ -10,7 +16,8 @@ Changelog
   change the main API endpoint.
 * Switched to using Ketting.
 * Using ESLint.
-* First time published on npmjs.org. 
+* First time published on npmjs.org.
+
 
 0.0.1 (2023-02-27)
 ------------------
