@@ -58,8 +58,7 @@
     "plugins": [
       "@oclif/plugin-commands",
       "@oclif/plugin-help",
-      "@oclif/plugin-not-found",
-      "@oclif/plugin-update"
+      "@oclif/plugin-not-found"
     ],
     "topicSeparator": ":",
     "topics": {
