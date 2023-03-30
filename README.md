@@ -36,22 +36,6 @@ For example, you can add the following statement to your `.bash_profile` or `.zs
 export EVENTLY_TOKEN="your-token-here"
 ```
 
-
-## Usage
-<!-- usage -->
-```sh-session
-$ npm install -g @evently-cloud/cli
-$ evently COMMAND
-running command...
-$ evently (--version)
-@evently-cloud/cli/0.1.0 linux-x64 node-v18.15.0
-$ evently --help [COMMAND]
-USAGE
-  $ evently COMMAND
-...
-```
-<!-- usagestop -->
-
 ## Commands
 <!-- commands -->
 * [`evently commands`](#evently-commands)
