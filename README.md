@@ -43,8 +43,8 @@ export EVENTLY_TOKEN="your-token-here"
 * [`evently ledger`](#evently-ledger)
 * [`evently ledger:download`](#evently-ledgerdownload)
 * [`evently ledger:reset`](#evently-ledgerreset)
+* [`evently registry:list`](#evently-registrylist)
 * [`evently registry:new`](#evently-registrynew)
-* [`evently update [CHANNEL]`](#evently-update-channel)
 
 ## `evently commands`
 
@@ -163,6 +163,23 @@ EXAMPLES
 
 _See code: [dist/commands/ledger/reset.ts](https://github.com/evently-cloud/cli/blob/v0.1.0/dist/commands/ledger/reset.ts)_
 
+## `evently registry:list`
+
+```
+USAGE
+  $ evently registry:list -e <value> -n <value> [-t <value>]
+
+FLAGS
+  -e, --event=<value>   (required) Event name
+  -n, --entity=<value>  (required) Entity name
+  -t, --token=<value>   [default: NOT-SET] Access token for your ledger.
+
+EXAMPLES
+  $ evently registry:list
+```
+
+_See code: [dist/commands/registry/list.ts](https://github.com/evently-cloud/cli/blob/v0.1.0/dist/commands/registry/list.ts)_
+
 ## `evently registry:new`
 
 ```
@@ -175,46 +192,9 @@ FLAGS
   -t, --token=<value>   [default: NOT-SET] Access token for your ledger.
 
 EXAMPLES
-  $ evently registry:add
+  $ evently registry:add 
   Created a new entity event at https://preview.evently.cloud/registry/[entity]/[event]
 ```
 
 _See code: [dist/commands/registry/new.ts](https://github.com/evently-cloud/cli/blob/v0.1.0/dist/commands/registry/new.ts)_
-
-## `evently update [CHANNEL]`
-
-update the evently CLI
-
-```
-USAGE
-  $ evently update [CHANNEL] [-a] [-v <value> | -i] [--force]
-
-FLAGS
-  -a, --available        Install a specific version.
-  -i, --interactive      Interactively select version to install. This is ignored if a channel is provided.
-  -v, --version=<value>  Install a specific version.
-  --force                Force a re-download of the requested version.
-
-DESCRIPTION
-  update the evently CLI
-
-EXAMPLES
-  Update to the stable channel:
-
-    $ evently update stable
-
-  Update to a specific version:
-
-    $ evently update --version 1.0.0
-
-  Interactively select version:
-
-    $ evently update --interactive
-
-  See available versions:
-
-    $ evently update --available
-```
-
-_See code: [@oclif/plugin-update](https://github.com/oclif/plugin-update/blob/v3.1.5/src/commands/update.ts)_
 <!-- commandsstop -->

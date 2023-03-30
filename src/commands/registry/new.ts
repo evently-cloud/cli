@@ -6,7 +6,7 @@ export default class New extends TokenAwareCommand {
   static description = ''
 
   static examples = [
-    `$ evently registry:add 
+    `$ evently registry:new
 Created a new entity event at https://preview.evently.cloud/registry/[entity]/[event]
 `]
 
