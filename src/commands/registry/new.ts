@@ -3,11 +3,11 @@ import {TokenAwareCommand} from '../../lib/token-command'
 import {initClient} from '../../lib/client'
 
 export default class New extends TokenAwareCommand {
-  static description = ''
+  static description = 'Creates a new entity event type.'
 
   static examples = [
-    `$ evently registry:new
-Created a new entity event at https://preview.evently.cloud/registry/[entity]/[event]
+    `$ evently registry:new -n article -e add-comment
+Created entity event type at https://preview.evently.cloud/registry/article/add-comment
 `]
 
 
@@ -44,7 +44,7 @@ Created a new entity event at https://preview.evently.cloud/registry/[entity]/[e
 
 
     this.log(
-      'Created a new entity event at %s',
+      'Created a new entity event type at %s',
       newEntityEventRes.uri
     )
 
