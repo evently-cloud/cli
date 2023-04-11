@@ -33,12 +33,12 @@ Deleted entity event type https://preview.evently.cloud/registry/article/add-com
 
     const {event, entity} = flags
 
-    const entityRes = await findEntryByName(
+    const entityRes = await followByName(
       await client.follow('registry'),
       entity
     )
 
-    const eventRes = await findEntryByName(
+    const eventRes = await followByName(
       entityRes,
       event
     )
@@ -60,16 +60,12 @@ Deleted entity event type https://preview.evently.cloud/registry/article/add-com
  *
  * If the resource was not found, this will throw an error.
  */
-async function findEntryByName(parent: Resource, name: string): Promise<Resource> {
+async function followByName(parent: Resource, name: string): Promise<Resource> {
 
-  const entries = await parent
-    .followAll('https://level3.rest/patterns/list#list-entry')
-    .preferTransclude()
-
-  for(const entry of entries) {
-    const entryBody = await entry.get()
-    if (entryBody.data.name === name) {
-      return entry
+  const links = await parent.links('https://level3.rest/patterns/list#list-entry')
+  for(const link of links) {
+    if (link.name === name) {
+      return parent.client.go(link)
     }
   }
   throw new Error(`Could not find an entry with name ${name} in collection ${parent.uri}`)

@@ -9,7 +9,7 @@ async function expectBody(message: Request|Response, body: any) {
 
 type RequestShape = {
   method: string;
-  path: string;
+  path?: string;
   headers?: Record<string, string>;
   body?: Record<string, any>;
 }
@@ -20,7 +20,7 @@ type RequestShape = {
 export async function expectRequest(request: Request, shape: RequestShape) {
 
   expect(request.method).to.equal(shape.method)
-  expect(new URL(request.url).pathname).to.equal(shape.path)
+  if (shape.path !== undefined) expect(new URL(request.url).pathname).to.equal(shape.path)
 
   if (shape.headers) {
     for(const [key, value] of Object.entries(shape.headers)) {
