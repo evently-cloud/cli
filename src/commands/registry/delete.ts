@@ -1,13 +1,13 @@
 import {Flags} from '@oclif/core'
 import {TokenAwareCommand} from '../../lib/token-command'
 import {initClient} from '../../lib/client'
-import {Resource} from 'ketting';
+import {Resource} from 'ketting'
 
 export default class Delete extends TokenAwareCommand {
   static description = 'Deletes an event type from the registry. This only works if no events of this type have been created.'
 
   static examples = [
-    `$ evently registry:new -n article -e add-comment
+    `$ evently registry:delete -n article -e add-comment
 Deleted entity event type https://preview.evently.cloud/registry/article/add-comment
 `]
 
