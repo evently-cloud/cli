@@ -6,8 +6,7 @@ const testToken = 'test-token'
 
 describe('registry:delete', () => {
 
-  it('should delete events', async () => {
-
+  before(() => {
     setMockCallback( (async (req: Request) => {
 
       expect(req.headers.get('Authorization')).to.equal(`Bearer ${testToken}`)
@@ -19,7 +18,11 @@ describe('registry:delete', () => {
           })
         case '/registry' :
           return buildResponse({
-            links: [{rel: 'register', href: '/registry/register'}]
+            links: [
+              {rel: 'register', href: '/registry/register'}
+              {rel: 'https://level3.rest/patterns/list#list-entry', href: '/entites/article/new-comment1', name: 'new-comment1'},
+              {rel: 'https://level3.rest/patterns/list#list-entry', href: '/entites/article/new-comment2', name: 'new-comment2'},
+            ],
           })
         default :
           return new Response('{}', {status: 501})
@@ -27,12 +30,13 @@ describe('registry:delete', () => {
 
     }))
 
-    await test
-      .stdout()
-      .command(['registry:delete', '-t', testToken, '-n', 'article',  '-e', 'new-comment'])
-      .it('deletes an event', (ctx) => {
-        expect(ctx.stdout).to.contain('Deleted entity event type')
-        expect(ctx.stdout).to.contain('/registry/entities/article/new-comment')
-      })
   })
+
+  test
+    .stdout()
+    .command(['registry:delete', '-t', testToken, '-n', 'article',  '-e', 'new-comment'])
+    .it('deletes an event', (ctx) => {
+      expect(ctx.stdout).to.contain('Deleted entity event type')
+      expect(ctx.stdout).to.contain('/registry/entities/article/new-comment')
+    })
 })

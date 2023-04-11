@@ -7,8 +7,7 @@ const ledgerMark = 'a-ledger-mark'
 
 describe('ledger:reset', () => {
 
-  it('should work', () => {
-
+  before(() => {
     setMockCallback( (async (req: Request) => {
 
       expect(req.headers.get('Authorization')).to.equal(`Bearer ${testToken}`)
@@ -20,7 +19,7 @@ describe('ledger:reset', () => {
           })
         case '/ledgers' :
           return buildResponse({
-            links: [{rel: 'download', href: '/ledgers/reset'}]
+            links: [{rel: 'reset', href: '/ledgers/reset'}]
           })
         case '/ledgers/reset' :
           expectRequest(req, {
@@ -39,20 +38,21 @@ describe('ledger:reset', () => {
 
     }))
 
-    test
-      .stdout()
-      .command(['ledger:reset', '-t', testToken])
-      .it('resets ledger fully', (ctx) => {
-        expect(ctx.stdout).to.contain('fully')
-      })
-
-
-    test
-      .stdout()
-      .command(['ledger:reset', '-t', testToken, '-a', ledgerMark])
-      .it('resets ledger after mark', (ctx) => {
-        expect(ctx.stdout).to.contain('after')
-      })
-
   })
+
+  test
+    .stdout()
+    .command(['ledger:reset', '-t', testToken])
+    .it('resets ledger fully', (ctx) => {
+      expect(ctx.stdout).to.contain('fully')
+    })
+
+
+  test
+    .stdout()
+    .command(['ledger:reset', '-t', testToken, '-a', ledgerMark])
+    .it('resets ledger after mark', (ctx) => {
+      expect(ctx.stdout).to.contain('after')
+    })
+
 })

@@ -59,8 +59,8 @@ export function buildResponse(options: ResponseOptions): Response {
     }
   }
 
-  return new Response(
-    JSON.stringify(body),
+  const resp = new Response(
+    options.status === 204 ? null : JSON.stringify(body),
     {
       status: options.status ?? 200,
       headers: {
@@ -69,5 +69,7 @@ export function buildResponse(options: ResponseOptions): Response {
       }
     },
   )
+
+  return resp
 
 }

@@ -14,7 +14,6 @@ export async function downloadAndValidateLedger(ledgerFile: string): Promise<num
 
   // this may take a while, so validate the file before opening the http connection
   const context = await validateLedgerFile(ledgerFile)
-
   const httpReadStream = await openHttpLedgerReadStream(context)
 
   const fileWriteStream = fs.createWriteStream(ledgerFile, {

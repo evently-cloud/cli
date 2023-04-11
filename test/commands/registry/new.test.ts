@@ -6,7 +6,7 @@ const testToken = 'test-token'
 
 describe('registry:new', () => {
 
-  it('should create a new event', () => {
+  before(() => {
 
     setMockCallback( (async (req: Request) => {
 
@@ -42,12 +42,13 @@ describe('registry:new', () => {
 
     }))
 
-    test
-      .stdout()
-      .command(['registry:new', '-t', testToken])
-      .it('creates a new event', (ctx) => {
-        expect(ctx.stdout).to.contain('Created a new entity event')
-        expect(ctx.stdout).to.contain('/registry/entities/entity-name/event-name')
-      })
   })
+
+  test
+    .stdout()
+    .command(['registry:new', '-n', 'entity-name', '-e', 'event-name', '-t', testToken])
+    .it('creates a new event', (ctx) => {
+      expect(ctx.stdout).to.contain('Created a new entity event')
+      expect(ctx.stdout).to.contain('/registry/entities/entity-name/event-name')
+    })
 })
