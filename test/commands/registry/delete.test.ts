@@ -32,10 +32,10 @@ describe('registry:delete', () => {
             ],
           })
         case '/registry/entities/article/new-comment2' :
-          await  expectRequest(req, { method: 'DELETE' });
+          await  expectRequest(req, { method: 'DELETE' })
           return buildResponse({
             status: 204
-          });
+          })
         default :
           process.stderr.write(path)
           return new Response('{}', {status: 501})
