@@ -43,7 +43,8 @@ export EVENTLY_TOKEN="your-token-here"
 * [`evently ledger`](#evently-ledger)
 * [`evently ledger:download`](#evently-ledgerdownload)
 * [`evently ledger:reset`](#evently-ledgerreset)
-* [`evently registry:list`](#evently-registrylist)
+* [`evently registry:delete`](#evently-registrydelete)
+* [`evently registry:list-entities`](#evently-registrylist-entities)
 * [`evently registry:new`](#evently-registrynew)
 
 ## `evently commands`
@@ -76,7 +77,7 @@ DESCRIPTION
   list all the commands
 ```
 
-_See code: [@oclif/plugin-commands](https://github.com/oclif/plugin-commands/blob/v2.2.12/src/commands/commands.ts)_
+_See code: [@oclif/plugin-commands](https://github.com/oclif/plugin-commands/blob/v2.2.10/src/commands/commands.ts)_
 
 ## `evently help [COMMANDS]`
 
@@ -96,7 +97,7 @@ DESCRIPTION
   Display help for evently.
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.2.8/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.2.5/src/commands/help.ts)_
 
 ## `evently ledger`
 
@@ -163,24 +164,57 @@ EXAMPLES
 
 _See code: [dist/commands/ledger/reset.ts](https://github.com/evently-cloud/cli/blob/v0.1.0/dist/commands/ledger/reset.ts)_
 
-## `evently registry:list`
+## `evently registry:delete`
+
+Deletes an event type from the registry. This only works if no events of this type have been created.
 
 ```
 USAGE
-  $ evently registry:list -e <value> -n <value> [-t <value>]
+  $ evently registry:delete -e <value> -n <value> [-t <value>]
 
 FLAGS
   -e, --event=<value>   (required) Event name
   -n, --entity=<value>  (required) Entity name
   -t, --token=<value>   [default: NOT-SET] Access token for your ledger.
 
+DESCRIPTION
+  Deletes an event type from the registry. This only works if no events of this type have been created.
+
 EXAMPLES
-  $ evently registry:list
+  $ evently registry:delete -n article -e add-comment
+  Deleted entity event type https://preview.evently.cloud/registry/article/add-comment
 ```
 
-_See code: [dist/commands/registry/list.ts](https://github.com/evently-cloud/cli/blob/v0.1.0/dist/commands/registry/list.ts)_
+_See code: [dist/commands/registry/delete.ts](https://github.com/evently-cloud/cli/blob/v0.1.0/dist/commands/registry/delete.ts)_
+
+## `evently registry:list-entities`
+
+```
+USAGE
+  $ evently registry:list-entities [-t <value>] [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output
+    csv|json|yaml |  | [--csv | --no-truncate]] [--no-header | ]
+
+FLAGS
+  -t, --token=<value>  [default: NOT-SET] Access token for your ledger.
+  -x, --extended       show extra columns
+  --columns=<value>    only show provided columns (comma-separated)
+  --csv                output is csv format [alias: --output=csv]
+  --filter=<value>     filter property by partial string matching, ex: name=foo
+  --no-header          hide table header from output
+  --no-truncate        do not truncate output to fit screen
+  --output=<option>    output in a more machine friendly format
+                       <options: csv|json|yaml>
+  --sort=<value>       property to sort by (prepend '-' for descending)
+
+EXAMPLES
+  $ evently registry:list-entities
+```
+
+_See code: [dist/commands/registry/list-entities.ts](https://github.com/evently-cloud/cli/blob/v0.1.0/dist/commands/registry/list-entities.ts)_
 
 ## `evently registry:new`
+
+Creates a new entity event type.
 
 ```
 USAGE
@@ -191,9 +225,12 @@ FLAGS
   -n, --entity=<value>  (required) Entity name
   -t, --token=<value>   [default: NOT-SET] Access token for your ledger.
 
+DESCRIPTION
+  Creates a new entity event type.
+
 EXAMPLES
-  $ evently registry:add 
-  Created a new entity event at https://preview.evently.cloud/registry/[entity]/[event]
+  $ evently registry:new -n article -e add-comment
+  Created entity event type at https://preview.evently.cloud/registry/article/add-comment
 ```
 
 _See code: [dist/commands/registry/new.ts](https://github.com/evently-cloud/cli/blob/v0.1.0/dist/commands/registry/new.ts)_
