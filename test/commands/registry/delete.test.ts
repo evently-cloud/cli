@@ -20,6 +20,13 @@ describe('registry:delete', () => {
           return buildResponse({
             links: [
               {rel: 'register', href: '/registry/register'},
+              {rel: 'entities', href: '/registry/entities'},
+            ],
+          })
+        case '/registry/entities' :
+          return buildResponse({
+            links: [
+              {rel: 'register', href: '/registry/register'},
               {rel: 'https://level3.rest/patterns/list#list-entry', href: '/registry/entities/article', name: 'article'},
             ],
           })

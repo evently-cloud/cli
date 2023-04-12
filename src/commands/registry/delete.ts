@@ -34,7 +34,7 @@ Deleted entity event type https://preview.evently.cloud/registry/article/add-com
     const {event, entity} = flags
 
     const entityRes = await followByName(
-      await client.follow('registry'),
+      await client.follow('registry').follow('entities'),
       entity
     )
 
