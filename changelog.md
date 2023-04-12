@@ -5,6 +5,8 @@ Changelog
 ------------------
 
 * Auto-generate readme with oclif.
+* Added support for registry:delete command, to delete events from the
+  registry.
 
 
 0.1.0 (2023-03-29)

@@ -11,7 +11,7 @@ import { setMockCallback } from '../../../src/lib/client'
 
 describe('ledger:download', async () => {
 
-  it('should work', () => {
+  before(() => {
 
     if (fs.existsSync(ledgerFile)) {
       fs.rmSync(ledgerFile)
@@ -74,7 +74,9 @@ describe('ledger:download', async () => {
               }
             })
             break
-          } else throw new Error('Unexpected body')
+          } else {
+            throw new Error('Unexpected body')
+          }
         }
         case '/' :
           return buildResponse({
@@ -90,21 +92,23 @@ describe('ledger:download', async () => {
 
     }))
 
-    test
-      .stdout()
-      .command(['ledger:download', '--file', ledgerFile, '-t', testToken])
-      .it('downloads full ledger', (ctx) => {
-        expect(ctx.stdout).to.contain('Downloading ledger fully')
-        expect(ctx.stdout).to.contain('Validated 1 ledger event')
-      })
-
-    test
-      .stdout()
-      .command(['ledger:download', '--file', ledgerFile, '--token', testToken])
-      .it('downloads ledger after the first event', (ctx) => {
-        expect(ctx.stdout).to.contain(`Downloading ledger after eventId ${firstEventId}`)
-        expect(ctx.stdout).to.contain('Validated 2 ledger events')
-      })
-
   })
+
+  test
+    .stdout()
+    .command(['ledger:download', '--file', ledgerFile, '-t', testToken])
+    .it('downloads full ledger', (ctx) => {
+
+      expect(ctx.stdout).to.contain('Downloading ledger fully')
+      expect(ctx.stdout).to.contain('Validated 1 ledger event')
+    })
+
+  test
+    .stdout()
+    .command(['ledger:download', '--file', ledgerFile, '--token', testToken])
+    .it('downloads ledger after the first event', (ctx) => {
+      expect(ctx.stdout).to.contain(`Downloading ledger after eventId ${firstEventId}`)
+      expect(ctx.stdout).to.contain('Validated 2 ledger events')
+    })
+
 })

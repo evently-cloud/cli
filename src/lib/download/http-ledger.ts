@@ -37,5 +37,5 @@ export async function openHttpLedgerReadStream(context?: ValidationContext): Pro
    *
    * So for now we're just casting, until we can do away with node-fetch.
    */
-  return response.body as unknown as Readable
+  return Readable.fromWeb(response.body as any, {encoding: 'utf-8'})
 }

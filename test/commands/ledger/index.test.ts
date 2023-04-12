@@ -7,24 +7,27 @@ const testToken = 'test-token'
 describe('ledger', () => {
   it('should work', () => {
 
-    setMockCallback( (async (req: Request) => {
+    before(() => {
+      setMockCallback( (async (req: Request) => {
 
-      expect(req.headers.get('Authorization')).to.equal(`Bearer ${testToken}`)
-      const path = new URL(req.url).pathname
-      switch(path) {
+        expect(req.headers.get('Authorization')).to.equal(`Bearer ${testToken}`)
+        const path = new URL(req.url).pathname
+        switch(path) {
 
-        case '/ledgers' :
-          return buildResponse({
-            body: {
-              name: 'test-ledger',
-              count: 10_000
-            },
-          })
-        default :
-          return new Response('{}', {status: 501})
-      }
+          case '/ledgers' :
+            return buildResponse({
+              body: {
+                name: 'test-ledger',
+                count: 10_000
+              },
+            })
+          default :
+            return new Response('{}', {status: 501})
+        }
 
-    }))
+      }))
+
+    })
 
     test
       .stdout()

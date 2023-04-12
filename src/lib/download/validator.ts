@@ -2,8 +2,6 @@ import {ChronoField, Instant} from '@js-joda/core'
 import {crc32c} from '@node-rs/crc32'
 import {EventBody, UnknownObject, ValidationContext} from './types'
 
-
-
 export function linesValidator(passThrough: boolean, context: ValidationContext) {
   return async function* (lines: AsyncIterable<string>) {
     for await (const line of lines) {
