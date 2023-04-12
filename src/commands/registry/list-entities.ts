@@ -50,6 +50,7 @@ export default class ListEntities extends TokenAwareCommand {
           header: 'URI',
         }
       },
+      flags,
     )
 
   }
