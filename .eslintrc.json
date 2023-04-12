@@ -39,7 +39,7 @@
       "no-console": ["error", { "allow": ["warn", "error", "info", "debug"] }],
       "no-trailing-spaces": "error",
       "eol-last": "error",
-      "braces": ["all", "error"],
+      "curly": "error",
       "@typescript-eslint/ban-ts-comment": ["error",
         {
           "ts-expect-error": "allow-with-description"

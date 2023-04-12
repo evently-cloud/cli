@@ -74,7 +74,9 @@ describe('ledger:download', async () => {
               }
             })
             break
-          } else throw new Error('Unexpected body')
+          } else {
+            throw new Error('Unexpected body')
+          }
         }
         case '/' :
           return buildResponse({

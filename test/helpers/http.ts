@@ -20,7 +20,9 @@ type RequestShape = {
 export async function expectRequest(request: Request, shape: RequestShape) {
 
   expect(request.method).to.equal(shape.method)
-  if (shape.path !== undefined) expect(new URL(request.url).pathname).to.equal(shape.path)
+  if (shape.path !== undefined) {
+    expect(new URL(request.url).pathname).to.equal(shape.path)
+  }
 
   if (shape.headers) {
     for(const [key, value] of Object.entries(shape.headers)) {
