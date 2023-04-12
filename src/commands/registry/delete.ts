@@ -1,7 +1,6 @@
-import {Flags} from '@oclif/core'
-import {TokenAwareCommand} from '../../lib/token-command'
-import {initClient} from '../../lib/client'
-import {Resource} from 'ketting'
+import { Flags } from '@oclif/core'
+import { TokenAwareCommand } from '../../lib/token-command'
+import { initClient, followByName } from '../../lib/client'
 
 export default class Delete extends TokenAwareCommand {
   static description = 'Deletes an event type from the registry. This only works if no events of this type have been created.'
@@ -51,23 +50,5 @@ Deleted entity event type https://preview.evently.cloud/registry/article/add-com
     )
 
   }
-
-}
-
-/**
- * Loops through a Ketting links with the level3 list-entry link and finds
- * the first resource that has the specified name property.
- *
- * If the resource was not found, this will throw an error.
- */
-async function followByName(parent: Resource, name: string): Promise<Resource> {
-
-  const links = await parent.links('https://level3.rest/patterns/list#list-entry')
-  for(const link of links) {
-    if (link.name === name) {
-      return parent.client.go(link)
-    }
-  }
-  throw new Error(`Could not find an entry with name ${name} in collection ${parent.uri}`)
 
 }

@@ -1,4 +1,4 @@
-import { Client, bearerAuth } from 'ketting'
+import { Client, bearerAuth, Resource } from 'ketting'
 import {CLIError} from '@oclif/core/lib/parser/errors'
 import {TokenAwareCommand} from './token-command'
 
@@ -52,6 +52,25 @@ export function initClient(token: string): Client {
   return client
 
 }
+
+/**
+ * Loops through a Ketting links with the level3 list-entry link and finds
+ * the first resource that has the specified name property.
+ *
+ * If the resource was not found, this will throw an error.
+ */
+export async function followByName(parent: Resource, name: string): Promise<Resource> {
+
+  const links = await parent.links('https://level3.rest/patterns/list#list-entry')
+  for(const link of links) {
+    if (link.name === name) {
+      return parent.client.go(link)
+    }
+  }
+  throw new Error(`Could not find an entry with name ${name} in collection ${parent.uri}`)
+
+}
+
 
 /**
  * Sets a callback that globally intercepts all HTTP traffic.
