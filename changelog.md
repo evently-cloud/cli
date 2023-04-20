@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.1.1 (????-??-??)
+0.2.0 (????-??-??)
 ------------------
 
 * Auto-generate readme with oclif.
@@ -9,6 +9,7 @@ Changelog
   registry.
 * Added registry:list-entities command.
 * Added registry:list-events command.
+* Documentation fixes.
 
 
 0.1.0 (2023-03-29)
