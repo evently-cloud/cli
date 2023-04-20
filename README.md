@@ -44,9 +44,7 @@ export EVENTLY_TOKEN="your-token-here"
 * [`evently ledger:download`](#evently-ledgerdownload)
 * [`evently ledger:reset`](#evently-ledgerreset)
 * [`evently registry:delete`](#evently-registrydelete)
-* [`evently registry:list`](#evently-registrylist)
 * [`evently registry:list-entities`](#evently-registrylist-entities)
-* [`evently registry:list-events`](#evently-registrylist-events)
 * [`evently registry:new`](#evently-registrynew)
 
 ## `evently commands`
@@ -189,23 +187,6 @@ EXAMPLES
 
 _See code: [dist/commands/registry/delete.ts](https://github.com/evently-cloud/cli/blob/v0.1.0/dist/commands/registry/delete.ts)_
 
-## `evently registry:list`
-
-```
-USAGE
-  $ evently registry:list -e <value> -n <value> [-t <value>]
-
-FLAGS
-  -e, --event=<value>   (required) Event name
-  -n, --entity=<value>  (required) Entity name
-  -t, --token=<value>   [default: NOT-SET] Access token for your ledger.
-
-EXAMPLES
-  $ evently registry:list
-```
-
-_See code: [dist/commands/registry/list.ts](https://github.com/evently-cloud/cli/blob/v0.1.0/dist/commands/registry/list.ts)_
-
 ## `evently registry:list-entities`
 
 ```
@@ -230,32 +211,6 @@ EXAMPLES
 ```
 
 _See code: [dist/commands/registry/list-entities.ts](https://github.com/evently-cloud/cli/blob/v0.1.0/dist/commands/registry/list-entities.ts)_
-
-## `evently registry:list-events`
-
-```
-USAGE
-  $ evently registry:list-events -n <value> [-t <value>] [--columns <value> | -x] [--sort <value>] [--filter <value>]
-    [--output csv|json|yaml |  | [--csv | --no-truncate]] [--no-header | ]
-
-FLAGS
-  -n, --entity=<value>  (required) Entity name
-  -t, --token=<value>   [default: NOT-SET] Access token for your ledger.
-  -x, --extended        show extra columns
-  --columns=<value>     only show provided columns (comma-separated)
-  --csv                 output is csv format [alias: --output=csv]
-  --filter=<value>      filter property by partial string matching, ex: name=foo
-  --no-header           hide table header from output
-  --no-truncate         do not truncate output to fit screen
-  --output=<option>     output in a more machine friendly format
-                        <options: csv|json|yaml>
-  --sort=<value>        property to sort by (prepend '-' for descending)
-
-EXAMPLES
-  $ evently registry:list-events --entity my-entity
-```
-
-_See code: [dist/commands/registry/list-events.ts](https://github.com/evently-cloud/cli/blob/v0.1.0/dist/commands/registry/list-events.ts)_
 
 ## `evently registry:new`
 
