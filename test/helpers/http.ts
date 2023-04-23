@@ -8,10 +8,10 @@ async function expectBody(message: Request|Response, body: any) {
 }
 
 type RequestShape = {
-  method: string;
-  path?: string;
-  headers?: Record<string, string>;
-  body?: Record<string, any>;
+  method:   string
+  path?:    string
+  headers?: Record<string, string>
+  body?:    Record<string, any>
 }
 
 /**
@@ -37,11 +37,11 @@ export async function expectRequest(request: Request, shape: RequestShape) {
 
 
 type ResponseOptions = {
-  status?: number;
-  body?: Record<string, any>;
-  links?: Omit<Link,'context'>[];
-  headers?: Record<string,string>;
-};
+  status?:  number
+  body?:    Record<string, any>
+  links?:   Omit<Link, 'context'>[]
+  headers?: Record<string, string>
+}
 
 /**
  * A function to make building HTTP responses a bit easier.

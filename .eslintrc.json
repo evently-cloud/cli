@@ -23,7 +23,10 @@
   ],
   "rules": {
       "indent": ["error", 2, {
-        "SwitchCase": 1
+        "SwitchCase": 1,
+        "FunctionDeclaration": {
+          "parameters": "first"
+        }
       }],
       "linebreak-style": ["error", "unix"],
       "no-constant-condition": ["error", {
@@ -50,7 +53,15 @@
         "assertionStyle": "as",
         "objectLiteralTypeAssertions": "never"
       }],
-      "@typescript-eslint/member-delimiter-style": "error",
+      "@typescript-eslint/member-delimiter-style": ["error", {
+        "multiline": {
+          "delimiter": "none"
+        },
+        "singleline": {
+          "delimiter": "semi",
+          "requireLast": false
+        }
+      }],
       "@typescript-eslint/no-inferrable-types": "off",
       "@typescript-eslint/no-explicit-any" : 0,
       "@typescript-eslint/no-for-in-array": "error",
