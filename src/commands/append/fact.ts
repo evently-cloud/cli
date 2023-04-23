@@ -3,9 +3,8 @@ import {TokenAwareCommand} from '../../lib/token-command'
 import {initClient} from '../../lib/client'
 import fs from 'node:fs/promises'
 import JSON5 from 'json5'
-import Ajv from 'ajv'
 
-export default class Reset extends TokenAwareCommand {
+export default class AppendFact extends TokenAwareCommand {
   static description = 'Appends a factual event to the ledger'
 
   static examples = [
@@ -55,16 +54,6 @@ Created new event at: https://preview.evently.cloud/selectors/fetch/ijfoij2oip4g
     const appendRes = await client
       .follow('append')
       .follow('factual')
-
-    const jsonSchema = (await appendRes.get()).data
-    const ajv = new Ajv()
-    const valid = ajv.validate(jsonSchema, body)
-
-    if (!valid) {
-      this.logToStderr(`Got ${ajv.errors?.length} error(s) during schema validation:`)
-      this.logToStderr(ajv.errorsText(ajv.errors))
-      this.exit(1)
-    }
 
     const newEventRes = await appendRes.postFollow({
       data: body
