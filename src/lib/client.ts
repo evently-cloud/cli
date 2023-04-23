@@ -7,7 +7,7 @@ import {TokenAwareCommand} from './token-command'
  */
 let client: Client|null = null
 
-type FetchMiddleware = (req: Request) => Promise<Response> | Response;
+type FetchMiddleware = (req: Request) => Promise<Response> | Response
 let mockCallback: FetchMiddleware | null = null
 
 /**
@@ -75,7 +75,7 @@ export async function followByName(parent: Resource, name: string): Promise<Reso
 /**
  * Sets a callback that globally intercepts all HTTP traffic.
  *
- * This is used for unittesting.
+ * This is used for unit testing.
  */
 export function setMockCallback(cb: FetchMiddleware) {
 

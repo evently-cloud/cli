@@ -49,8 +49,8 @@ function calculateLedgerId(firstEvent: EventBody): string {
 
 
 function calculateEventId(eventIn:          EventBody,
-  ledgerIdHex:      string,
-  previousEventId:  string): string {
+                          ledgerIdHex:      string,
+                          previousEventId:  string): string {
   // calculate the base checksum
   let checksum = calculateChecksumWithoutTimestamp(eventIn)
   // add LedgerId
