@@ -6,7 +6,7 @@ import JSON5 from 'json5'
 import Ajv from 'ajv'
 
 export default class Reset extends TokenAwareCommand {
-  static description = 'Reset a Ledger'
+  static description = 'Appends a factual event to the ledger'
 
   static examples = [
     `$ evently append:fact <<EVENT 
@@ -19,7 +19,7 @@ export default class Reset extends TokenAwareCommand {
 }
 EVENT
 
-Created new event at: https://preview.evently.cloud/selectors/fetch/g6FlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhYcQQAAX6BLnfXI0VAEC0lnqkdw.ndjson
+Created new event at: https://preview.evently.cloud/selectors/fetch/ijfoij2oip4gj4wd.json
 `]
 
 
