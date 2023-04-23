@@ -1,15 +1,15 @@
 {
   "name": "@evently-cloud/cli",
   "description": "Evently.cloud CLI tools to develop applications and manage your ledgers.",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": "Evently",
   "bin": {
     "evently": "./bin/run"
   },
   "bugs": "https://github.com/evently-cloud/cli/issues",
   "dependencies": {
-    "@js-joda/core": "5.5.2",
-    "@node-rs/crc32": "1.6.0",
+    "@js-joda/core": "^5.5.3",
+    "@node-rs/crc32": "^1.6.1",
     "@oclif/core": "2.8",
     "@oclif/plugin-commands": "2.2",
     "@oclif/plugin-help": "5.2",
@@ -28,7 +28,7 @@
     "eslint": "^8.36.0",
     "globby": "11.1.0",
     "mocha": "10.2.0",
-    "oclif": "3.7",
+    "oclif": "^3.8.1",
     "ts-node": "10.9.1",
     "tslib": "2.5.0",
     "typescript": "^5.0.2"
