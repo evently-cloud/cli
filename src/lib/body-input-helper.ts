@@ -17,8 +17,8 @@ export const flags = {
 }
 
 type BodyFlags = {
-  file: string|undefined;
-  body: string|undefined;
+  file: string|undefined
+  body: string|undefined
 }
 
 export async function readJson5(flags: BodyFlags): Promise<Record<string, any>> {
