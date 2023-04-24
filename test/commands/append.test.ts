@@ -1,7 +1,7 @@
 import {expect, test} from '@oclif/test'
 
-import { setMockCallback } from '../../../src/lib/client'
-import { buildResponse, expectRequest } from '../../helpers/http'
+import { setMockCallback } from '../../src/lib/client'
+import { buildResponse, expectRequest } from '../helpers/http'
 const testToken = 'test-token'
 
 for(const appendType of ['fact', 'serial', 'atomic']) {
