@@ -2,17 +2,18 @@ import {TokenAwareCommand} from '../../lib/token-command'
 import {initClient} from '../../lib/client'
 import * as bodyInputHelper from '../../lib/body-input-helper'
 
-export default class AppendFact extends TokenAwareCommand {
-  static description = 'Appends a factual event to the ledger'
+export default class SerialFact extends TokenAwareCommand {
+  static description = 'Appends a serial event to the ledger'
 
   static examples = [
-    `$ evently append:fact <<EVENT 
+    `$ evently append:serial <<EVENT 
 {
   entity: "thermostat",
   event: "temperature-recorded",
   key: "thermostat1",
   meta: {causation: "14rew3494"},
-  data:{celsius: 18.5}
+  data:{celsius: 18.5},
+  previousEventId: "foo-bar"
 }
 EVENT
 
@@ -25,7 +26,7 @@ Created new event at: https://preview.evently.cloud/selectors/fetch/ijfoij2oip4g
   }
 
   async run(): Promise<void> {
-    const {flags} = await this.parse(AppendFact)
+    const {flags} = await this.parse(SerialFact)
 
     const body = await bodyInputHelper.readJson5(flags)
 
@@ -33,7 +34,7 @@ Created new event at: https://preview.evently.cloud/selectors/fetch/ijfoij2oip4g
 
     const appendRes = await client
       .follow('append')
-      .follow('factual')
+      .follow('serial')
 
     const newEventRes = await appendRes.postFollow({
       data: body

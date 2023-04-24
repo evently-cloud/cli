@@ -3,7 +3,9 @@ import {Link} from 'ketting'
 
 async function expectBody(message: Request|Response, body: any) {
 
-  expect(await message.json()).to.deep.equal(body)
+  expect(
+    await message.json()
+  ).to.deep.equal(body)
 
 }
 
@@ -26,11 +28,11 @@ export async function expectRequest(request: Request, shape: RequestShape) {
 
   if (shape.headers) {
     for(const [key, value] of Object.entries(shape.headers)) {
-      expect(request.headers.get(key)).to.equal(value)
+      await expect(request.headers.get(key)).to.equal(value)
     }
   }
   if ('body' in shape) {
-    expectBody(request, shape.body)
+    await expectBody(request, shape.body)
   }
 
 }
