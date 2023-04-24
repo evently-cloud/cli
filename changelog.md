@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.2.0 (????-??-??)
+0.2.0 (2023-04-23)
 ------------------
 
 * Auto-generate readme with oclif.

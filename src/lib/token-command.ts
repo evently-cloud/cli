@@ -10,7 +10,7 @@ export abstract class TokenAwareCommand extends Command {
       env:          'EVENTLY_TOKEN',
       required:     false,
       default:      NOT_SET
-    }),
+    })
   }
 
 }
