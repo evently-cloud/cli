@@ -6,7 +6,7 @@ export default class AtomicFact extends TokenAwareCommand {
   static description = 'Appends a serial event to the ledger'
 
   static examples = [
-    `$ evently append:atomic <<EVENT 
+    `$ evently append:atomic <<EVENT
 {
   entity: "thermostat",
   event: "temperature-recorded",

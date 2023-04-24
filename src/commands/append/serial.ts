@@ -6,7 +6,7 @@ export default class SerialFact extends TokenAwareCommand {
   static description = 'Appends a serial event to the ledger'
 
   static examples = [
-    `$ evently append:serial <<EVENT 
+    `$ evently append:serial <<EVENT
 {
   entity: "thermostat",
   event: "temperature-recorded",

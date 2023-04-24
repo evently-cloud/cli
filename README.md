@@ -38,7 +38,9 @@ export EVENTLY_TOKEN="your-token-here"
 
 ## Commands
 <!-- commands -->
+* [`evently append:atomic`](#evently-appendatomic)
 * [`evently append:fact`](#evently-appendfact)
+* [`evently append:serial`](#evently-appendserial)
 * [`evently commands`](#evently-commands)
 * [`evently help [COMMANDS]`](#evently-help-commands)
 * [`evently ledger`](#evently-ledger)
@@ -49,23 +51,59 @@ export EVENTLY_TOKEN="your-token-here"
 * [`evently registry:list-events`](#evently-registrylist-events)
 * [`evently registry:new`](#evently-registrynew)
 
+## `evently append:atomic`
+
+Appends a serial event to the ledger
+
+```
+USAGE
+  $ evently append:atomic [-t <value>] [-f <value>] [-b <value>]
+
+FLAGS
+  -b, --body=<value>   Read data from argument. If neither --body nor --file is given, STDIN is used.
+  -f, --file=<value>   Read event data from this file. If neither --body nor --file is given, STDIN is used.
+  -t, --token=<value>  [default: NOT-SET] Access token for your ledger.
+
+DESCRIPTION
+  Appends a serial event to the ledger
+
+EXAMPLES
+  $ evently append:atomic <<EVENT
+  {
+    entity: "thermostat",
+    event: "temperature-recorded",
+    key: "thermostat1",
+    meta: {causation: "14rew3494"},
+    data:{celsius: 18.5},
+    selector: {
+      selectorId: "foo",
+      mark: "bar"
+    }
+  }
+  EVENT
+  Created new event at: https://preview.evently.cloud/selectors/fetch/ijfoij2oip4gj4wd.json
+```
+
+_See code: [dist/commands/append/atomic.ts](https://github.com/evently-cloud/cli/blob/v0.2.0/dist/commands/append/atomic.ts)_
+
 ## `evently append:fact`
 
 Appends a factual event to the ledger
 
 ```
 USAGE
-  $ evently append:fact [-t <value>] [-f <value>]
+  $ evently append:fact [-t <value>] [-f <value>] [-b <value>]
 
 FLAGS
-  -f, --file=<value>   Read event data from this file. If no file is given, STDIN is used.
+  -b, --body=<value>   Read data from argument. If neither --body nor --file is given, STDIN is used.
+  -f, --file=<value>   Read event data from this file. If neither --body nor --file is given, STDIN is used.
   -t, --token=<value>  [default: NOT-SET] Access token for your ledger.
 
 DESCRIPTION
   Appends a factual event to the ledger
 
 EXAMPLES
-  $ evently append:fact <<EVENT 
+  $ evently append:fact <<EVENT
   {
     entity: "thermostat",
     event: "temperature-recorded",
@@ -78,6 +116,38 @@ EXAMPLES
 ```
 
 _See code: [dist/commands/append/fact.ts](https://github.com/evently-cloud/cli/blob/v0.2.0/dist/commands/append/fact.ts)_
+
+## `evently append:serial`
+
+Appends a serial event to the ledger
+
+```
+USAGE
+  $ evently append:serial [-t <value>] [-f <value>] [-b <value>]
+
+FLAGS
+  -b, --body=<value>   Read data from argument. If neither --body nor --file is given, STDIN is used.
+  -f, --file=<value>   Read event data from this file. If neither --body nor --file is given, STDIN is used.
+  -t, --token=<value>  [default: NOT-SET] Access token for your ledger.
+
+DESCRIPTION
+  Appends a serial event to the ledger
+
+EXAMPLES
+  $ evently append:serial <<EVENT
+  {
+    entity: "thermostat",
+    event: "temperature-recorded",
+    key: "thermostat1",
+    meta: {causation: "14rew3494"},
+    data:{celsius: 18.5},
+    previousEventId: "foo-bar"
+  }
+  EVENT
+  Created new event at: https://preview.evently.cloud/selectors/fetch/ijfoij2oip4gj4wd.json
+```
+
+_See code: [dist/commands/append/serial.ts](https://github.com/evently-cloud/cli/blob/v0.2.0/dist/commands/append/serial.ts)_
 
 ## `evently commands`
 

@@ -6,7 +6,7 @@ export default class AppendFact extends TokenAwareCommand {
   static description = 'Appends a factual event to the ledger'
 
   static examples = [
-    `$ evently append:fact <<EVENT 
+    `$ evently append:fact <<EVENT
 {
   entity: "thermostat",
   event: "temperature-recorded",
