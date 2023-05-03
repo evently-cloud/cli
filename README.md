@@ -38,8 +38,116 @@ export EVENTLY_TOKEN="your-token-here"
 
 ## Commands
 <!-- commands -->
+* [`evently append:atomic`](#evently-appendatomic)
+* [`evently append:fact`](#evently-appendfact)
+* [`evently append:serial`](#evently-appendserial)
 * [`evently commands`](#evently-commands)
 * [`evently help [COMMANDS]`](#evently-help-commands)
+* [`evently ledger`](#evently-ledger)
+* [`evently ledger:download`](#evently-ledgerdownload)
+* [`evently ledger:reset`](#evently-ledgerreset)
+* [`evently registry:delete`](#evently-registrydelete)
+* [`evently registry:list-entities`](#evently-registrylist-entities)
+* [`evently registry:list-events`](#evently-registrylist-events)
+* [`evently registry:new`](#evently-registrynew)
+
+## `evently append:atomic`
+
+Appends a serial event to the ledger
+
+```
+USAGE
+  $ evently append:atomic [-t <value>] [-f <value>] [-b <value>]
+
+FLAGS
+  -b, --body=<value>   Read data from argument. If neither --body nor --file is given, STDIN is used.
+  -f, --file=<value>   Read event data from this file. If neither --body nor --file is given, STDIN is used.
+  -t, --token=<value>  [default: NOT-SET] Access token for your ledger.
+
+DESCRIPTION
+  Appends a serial event to the ledger
+
+EXAMPLES
+  $ evently append:atomic <<EVENT
+  {
+    entity: "thermostat",
+    event: "temperature-recorded",
+    key: "thermostat1",
+    meta: {causation: "14rew3494"},
+    data:{celsius: 18.5},
+    selector: {
+      selectorId: "foo",
+      mark: "bar"
+    }
+  }
+  EVENT
+  Created new event at: https://preview.evently.cloud/selectors/fetch/ijfoij2oip4gj4wd.json
+```
+
+_See code: [dist/commands/append/atomic.ts](https://github.com/evently-cloud/cli/blob/v0.2.0/dist/commands/append/atomic.ts)_
+
+## `evently append:fact`
+
+Appends a factual event to the ledger
+
+```
+USAGE
+  $ evently append:fact [-t <value>] [-f <value>] [-b <value>]
+
+FLAGS
+  -b, --body=<value>   Read data from argument. If neither --body nor --file is given, STDIN is used.
+  -f, --file=<value>   Read event data from this file. If neither --body nor --file is given, STDIN is used.
+  -t, --token=<value>  [default: NOT-SET] Access token for your ledger.
+
+DESCRIPTION
+  Appends a factual event to the ledger
+
+EXAMPLES
+  $ evently append:fact <<EVENT
+  {
+    entity: "thermostat",
+    event: "temperature-recorded",
+    key: "thermostat1",
+    meta: {causation: "14rew3494"},
+    data:{celsius: 18.5}
+  }
+  EVENT
+  Created new event at: https://preview.evently.cloud/selectors/fetch/ijfoij2oip4gj4wd.json
+```
+
+_See code: [dist/commands/append/fact.ts](https://github.com/evently-cloud/cli/blob/v0.2.0/dist/commands/append/fact.ts)_
+
+## `evently append:serial`
+
+Appends a serial event to the ledger
+
+```
+USAGE
+  $ evently append:serial [-t <value>] [-f <value>] [-b <value>]
+
+FLAGS
+  -b, --body=<value>   Read data from argument. If neither --body nor --file is given, STDIN is used.
+  -f, --file=<value>   Read event data from this file. If neither --body nor --file is given, STDIN is used.
+  -t, --token=<value>  [default: NOT-SET] Access token for your ledger.
+
+DESCRIPTION
+  Appends a serial event to the ledger
+
+EXAMPLES
+  $ evently append:serial <<EVENT
+  {
+    entity: "thermostat",
+    event: "temperature-recorded",
+    key: "thermostat1",
+    meta: {causation: "14rew3494"},
+    data:{celsius: 18.5},
+    previousEventId: "foo-bar"
+  }
+  EVENT
+  Created new event at: https://preview.evently.cloud/selectors/fetch/ijfoij2oip4gj4wd.json
+```
+
+_See code: [dist/commands/append/serial.ts](https://github.com/evently-cloud/cli/blob/v0.2.0/dist/commands/append/serial.ts)_
 
 ## `evently commands`
 
@@ -92,4 +200,166 @@ DESCRIPTION
 ```
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.2.9/src/commands/help.ts)_
+
+## `evently ledger`
+
+Ledger commands
+
+```
+USAGE
+  $ evently ledger [-t <value>]
+
+FLAGS
+  -t, --token=<value>  [default: NOT-SET] Access token for your ledger.
+
+DESCRIPTION
+  Ledger commands
+
+EXAMPLES
+  $ evently ledger
+  name: your-ledger-name, events: count
+```
+
+_See code: [dist/commands/ledger/index.ts](https://github.com/evently-cloud/cli/blob/v0.2.0/dist/commands/ledger/index.ts)_
+
+## `evently ledger:download`
+
+Download a Ledger
+
+```
+USAGE
+  $ evently ledger:download -f <value> [-t <value>]
+
+FLAGS
+  -f, --file=<value>   (required) File to download / append Ledger to.
+  -t, --token=<value>  [default: NOT-SET] Access token for your ledger.
+
+DESCRIPTION
+  Download a Ledger
+
+EXAMPLES
+  $ evently ledger:download
+  Validated 13,438 ledger events.
+```
+
+_See code: [dist/commands/ledger/download.ts](https://github.com/evently-cloud/cli/blob/v0.2.0/dist/commands/ledger/download.ts)_
+
+## `evently ledger:reset`
+
+Reset a Ledger
+
+```
+USAGE
+  $ evently ledger:reset [-t <value>] [-a <value>]
+
+FLAGS
+  -a, --after=<value>  Ledger Mark / Event ID to reset ledger after.
+  -t, --token=<value>  [default: NOT-SET] Access token for your ledger.
+
+DESCRIPTION
+  Reset a Ledger
+
+EXAMPLES
+  $ evently ledger:reset
+  Reset ledger fully.
+```
+
+_See code: [dist/commands/ledger/reset.ts](https://github.com/evently-cloud/cli/blob/v0.2.0/dist/commands/ledger/reset.ts)_
+
+## `evently registry:delete`
+
+Deletes an event type from the registry. This only works if no events of this type have been created.
+
+```
+USAGE
+  $ evently registry:delete -e <value> -n <value> [-t <value>]
+
+FLAGS
+  -e, --event=<value>   (required) Event name
+  -n, --entity=<value>  (required) Entity name
+  -t, --token=<value>   [default: NOT-SET] Access token for your ledger.
+
+DESCRIPTION
+  Deletes an event type from the registry. This only works if no events of this type have been created.
+
+EXAMPLES
+  $ evently registry:delete -n article -e add-comment
+  Deleted entity event type https://preview.evently.cloud/registry/article/add-comment
+```
+
+_See code: [dist/commands/registry/delete.ts](https://github.com/evently-cloud/cli/blob/v0.2.0/dist/commands/registry/delete.ts)_
+
+## `evently registry:list-entities`
+
+```
+USAGE
+  $ evently registry:list-entities [-t <value>] [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output
+    csv|json|yaml |  | [--csv | --no-truncate]] [--no-header | ]
+
+FLAGS
+  -t, --token=<value>  [default: NOT-SET] Access token for your ledger.
+  -x, --extended       show extra columns
+  --columns=<value>    only show provided columns (comma-separated)
+  --csv                output is csv format [alias: --output=csv]
+  --filter=<value>     filter property by partial string matching, ex: name=foo
+  --no-header          hide table header from output
+  --no-truncate        do not truncate output to fit screen
+  --output=<option>    output in a more machine friendly format
+                       <options: csv|json|yaml>
+  --sort=<value>       property to sort by (prepend '-' for descending)
+
+EXAMPLES
+  $ evently registry:list-entities
+```
+
+_See code: [dist/commands/registry/list-entities.ts](https://github.com/evently-cloud/cli/blob/v0.2.0/dist/commands/registry/list-entities.ts)_
+
+## `evently registry:list-events`
+
+```
+USAGE
+  $ evently registry:list-events -n <value> [-t <value>] [--columns <value> | -x] [--sort <value>] [--filter <value>]
+    [--output csv|json|yaml |  | [--csv | --no-truncate]] [--no-header | ]
+
+FLAGS
+  -n, --entity=<value>  (required) Entity name
+  -t, --token=<value>   [default: NOT-SET] Access token for your ledger.
+  -x, --extended        show extra columns
+  --columns=<value>     only show provided columns (comma-separated)
+  --csv                 output is csv format [alias: --output=csv]
+  --filter=<value>      filter property by partial string matching, ex: name=foo
+  --no-header           hide table header from output
+  --no-truncate         do not truncate output to fit screen
+  --output=<option>     output in a more machine friendly format
+                        <options: csv|json|yaml>
+  --sort=<value>        property to sort by (prepend '-' for descending)
+
+EXAMPLES
+  $ evently registry:list-events --entity my-entity
+```
+
+_See code: [dist/commands/registry/list-events.ts](https://github.com/evently-cloud/cli/blob/v0.2.0/dist/commands/registry/list-events.ts)_
+
+## `evently registry:new`
+
+Creates a new entity event type.
+
+```
+USAGE
+  $ evently registry:new -e <value> -n <value> [-t <value>]
+
+FLAGS
+  -e, --event=<value>   (required) Event name
+  -n, --entity=<value>  (required) Entity name
+  -t, --token=<value>   [default: NOT-SET] Access token for your ledger.
+
+DESCRIPTION
+  Creates a new entity event type.
+
+EXAMPLES
+  $ evently registry:new -n article -e add-comment
+  Created entity event type at https://preview.evently.cloud/registry/article/add-comment
+```
+
+_See code: [dist/commands/registry/new.ts](https://github.com/evently-cloud/cli/blob/v0.2.0/dist/commands/registry/new.ts)_
 <!-- commandsstop -->
