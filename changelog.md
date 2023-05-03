@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.3.0 (2023-05-03)
+0.3.0 (????-??-??)
 ------------------
 
 * Added `append:list`, `append:serial` and `append:fact` commands.
