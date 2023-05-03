@@ -3,6 +3,8 @@ name: "Pre-release tasks"
 on:
   pull_request:
     types: [ labeled ]
+permissions:
+  contents: write
 
 jobs:
   check-readme:
@@ -28,7 +30,11 @@ jobs:
           node-version: 18
           registry-url: https://registry.npmjs.org/
       - run: npm ci
+      - name: Configure git
+        run: |
+          git config --global user.name 'Release Bot'
+          git config --global user.email 'releasebot@evertpot.com'
       - name: Mark latest version as released
         run: npx changelog-tool release
-      - name: Commit changes back to branch (if any)
+      - name: Push changes back to PR
         run: git push
