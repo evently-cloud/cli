@@ -1,16 +1,18 @@
 name: "Do release checks"
+
 on:
   pull_request:
-    type: [labeled]
-  jobs:
-    pre-release-checks:
-      runs-on: ubuntu-latest
-      if: contains(github.event.pull_request.labels.*.name, 'release')
+    types: [ labeled ]
 
-      steps:
-        - name: Install changelog tool
-          run: npm i -G changelog-tool
-        - name: Mark latest version as released
-          run: changelog release
-        - name: Commit changes back to branch (if any)
-          run: git push
+jobs:
+  pre-release-checks:
+    runs-on: ubuntu-latest
+    if: contains(github.event.pull_request.labels.*.name, 'release')
+
+    steps:
+      - name: Install changelog tool
+        run: npm i -G changelog-tool
+      - name: Mark latest version as released
+        run: changelog release
+      - name: Commit changes back to branch (if any)
+        run: git push
