@@ -10,9 +10,7 @@ jobs:
     if: contains(github.event.pull_request.labels.*.name, 'release')
 
     steps:
-      - name: Install changelog tool
-        run: npm i -G changelog-tool
       - name: Mark latest version as released
-        run: changelog release
+        run: npx changelog-tool release
       - name: Commit changes back to branch (if any)
         run: git push
