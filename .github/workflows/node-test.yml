@@ -44,13 +44,4 @@ jobs:
     - run: npm ci
     - run: npm run lint
 
-  check-readme:
-    name: Ensure README.md is up-to-date
-    runs-on: ubuntu-latest
 
-    steps:
-    - uses: actions/setup-node@v3
-      with:
-        node-version: 18.x
-    - run: npm ci
-    - run: npx oclif readme

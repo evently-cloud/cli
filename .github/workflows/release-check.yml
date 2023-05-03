@@ -5,6 +5,18 @@ on:
     types: [ labeled ]
 
 jobs:
+  check-readme:
+    name: Ensure README.md is up-to-date
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 18.x
+    - run: npm ci
+    - run: npx oclif readme
+
   pre-release-checks:
     runs-on: ubuntu-latest
     if: contains(github.event.pull_request.labels.*.name, 'release')
