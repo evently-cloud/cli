@@ -24,6 +24,8 @@ jobs:
     if: contains(github.event.pull_request.labels.*.name, 'release')
 
     steps:
+      - name: Checkout code
+        run: gh pr checkout ${{ github.event.pull_request.number }}
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
@@ -37,4 +39,4 @@ jobs:
       - name: Mark latest version as released
         run: npx changelog-tool release
       - name: Push changes back to PR
-        run: git push origin ${GITHUB_REF}
+        run: git push
