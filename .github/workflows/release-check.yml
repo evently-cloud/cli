@@ -10,6 +10,7 @@ jobs:
     if: contains(github.event.pull_request.labels.*.name, 'release')
 
     steps:
+      - uses: actions/checkout@v3
       - name: Mark latest version as released
         run: npx changelog-tool release
       - name: Commit changes back to branch (if any)
