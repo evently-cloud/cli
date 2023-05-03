@@ -7,21 +7,6 @@ permissions:
   contents: write
 
 jobs:
-  check-readme:
-    name: Ensure README.md is up-to-date
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-node@v3
-      with:
-        node-version: 18.x
-    - run: npm ci
-    - name: Build
-      run: npm run build
-    - name: Re-generate readme
-      run: npx oclif readme
-
   pre-release-checks:
     runs-on: ubuntu-latest
     if: contains(github.event.pull_request.labels.*.name, 'release')
@@ -37,6 +22,8 @@ jobs:
           node-version: 18
           registry-url: https://registry.npmjs.org/
       - run: npm ci
+      - name: Build
+        run: npm run build
       - name: Configure git
         run: |
           git config --global user.name 'Release Bot'
