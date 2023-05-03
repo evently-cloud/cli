@@ -1,4 +1,4 @@
-name: "Do release checks"
+name: "Pre-release tasks"
 
 on:
   pull_request:
@@ -11,6 +11,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          registry-url: https://registry.npmjs.org/
+      - run: npm ci
       - name: Mark latest version as released
         run: npx changelog-tool release
       - name: Commit changes back to branch (if any)
