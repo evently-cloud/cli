@@ -4,7 +4,7 @@ import { ux } from '@oclif/core'
 import { Flags } from '@oclif/core'
 
 export default class ListEvents extends TokenAwareCommand {
-  static description = ''
+  static description = 'Lists all event types for an entity.'
 
   static examples = [
     `$ evently registry:list-events --entity my-entity
