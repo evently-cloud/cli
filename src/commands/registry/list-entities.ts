@@ -3,7 +3,7 @@ import { initClient } from '../../lib/client'
 import { ux } from '@oclif/core'
 
 export default class ListEntities extends TokenAwareCommand {
-  static description = ''
+  static description = 'Lists all entities in the registry.'
 
   static examples = [
     `$ evently registry:list-entities
