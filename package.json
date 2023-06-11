@@ -25,6 +25,7 @@
     "@typescript-eslint/eslint-plugin": "^5.56.0",
     "@typescript-eslint/parser": "^5.56.0",
     "chai": "4.3.7",
+    "changelog-tool": "0.7.2",
     "env-cmd": "10.1.0",
     "eslint": "^8.36.0",
     "globby": "11.1.0",
