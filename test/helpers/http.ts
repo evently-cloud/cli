@@ -41,6 +41,7 @@ export async function expectRequest(request: Request, shape: RequestShape) {
 type ResponseOptions = {
   status?:  number
   body?:    Record<string, any>
+  rawBody?: string
   links?:   Omit<Link, 'context'>[]
   headers?: Record<string, string>
 }
@@ -50,21 +51,27 @@ type ResponseOptions = {
  */
 export function buildResponse(options: ResponseOptions): Response {
 
-  const body = {
-    ...options.body,
-  }
-  if (options.links) {
-    body._links = {}
-    for(const { rel, ...link} of options.links) {
-      if (!(rel in body._links)) {
-        body._links[rel] = []
-      }
-      body._links[rel].push(link)
+  let body
+  if (options.rawBody) {
+    body = options.rawBody
+  } else {
+    body = {
+      ...options.body,
     }
+    if (options.links) {
+      body._links = {}
+      for(const { rel, ...link} of options.links) {
+        if (!(rel in body._links)) {
+          body._links[rel] = []
+        }
+        body._links[rel].push(link)
+      }
+    }
+    body = JSON.stringify(body)
   }
 
   const resp = new Response(
-    options.status === 204 ? null : JSON.stringify(body),
+    options.status === 204 ? null : body,
     {
       status: options.status ?? 200,
       headers: {

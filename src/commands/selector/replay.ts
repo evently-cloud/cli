@@ -114,8 +114,9 @@ export default class SelectorReplay extends TokenAwareCommand {
       flags,
     )
 
+    this.log('')
     if ('next' in meta._links) {
-      this.log('Next page: %s', meta._links.href)
+      this.log('Next page: %s', meta._links.next.href)
     } else {
       this.log('No more data')
     }
