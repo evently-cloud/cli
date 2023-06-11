@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.3.1 (????-??-??)
+0.3.1 (2023-06-11)
 ------------------
 
 * Add a description for list-entities and list-events.
