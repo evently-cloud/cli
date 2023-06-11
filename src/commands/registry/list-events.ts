@@ -1,7 +1,6 @@
 import { TokenAwareCommand } from '../../lib/token-command'
 import { followByName, initClient } from '../../lib/client'
-import { ux } from '@oclif/core'
-import { Flags } from '@oclif/core'
+import { ux, Flags } from '@oclif/core'
 
 export default class ListEvents extends TokenAwareCommand {
   static description = 'Lists all event types for an entity.'
@@ -38,8 +37,6 @@ export default class ListEvents extends TokenAwareCommand {
       .preferTransclude()
 
     const table: Record<string, string>[] = []
-
-
     for(const event of events) {
 
       const eventState = await event.get()
