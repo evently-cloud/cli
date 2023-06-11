@@ -1,8 +1,10 @@
+import {CLIError} from '@oclif/core/lib/parser/errors'
 import {Readable} from 'node:stream'
+import {ReadableStream} from 'stream/web'
 import {ValidationContext} from './types'
 import { getClient } from '../client'
 
-export async function openHttpLedgerReadStream(context?: ValidationContext): Promise<Readable> {
+export async function openHttpLedgerReadStream(token: string, context?: ValidationContext): Promise<Readable> {
   const after = context?.previousEventId
   const afterMsg = after ? `after eventId ${after}` : 'fully'
   const body = after ? JSON.stringify({ after }): '{}'
@@ -13,14 +15,16 @@ export async function openHttpLedgerReadStream(context?: ValidationContext): Pro
   const downloadRes = await client
     .follow('ledgers')
     .follow('download')
+  const downloadUri = downloadRes.uri
 
-  const response = await downloadRes.fetchOrThrow({
+  const response = await fetch(downloadUri, {
     method: 'POST',
     headers: {
       'Content-Type':     'application/json',
       'Accept':           'application/x-ndjson',
       'Prefer':           'return=representation',
-      'Accept-Encoding':  'br'
+      'Accept-Encoding':  'br',
+      'Authorization':    `Bearer ${token}`
     },
     body
   })
@@ -28,14 +32,9 @@ export async function openHttpLedgerReadStream(context?: ValidationContext): Pro
   if (!response.body) {
     throw new Error('No response body received')
   }
-
-  /*
-   * Currently we're using node-fetch which uses actual Node Readable
-   * streams.
-   *
-   * But the types assume it's the same as a browser stream which is a "stream/web".ReadableStream.
-   *
-   * So for now we're just casting, until we can do away with node-fetch.
-   */
-  return Readable.fromWeb(response.body as any, {encoding: 'utf-8'})
+  if (response.status == 200) {
+    return Readable.fromWeb(response.body as ReadableStream, {encoding: 'utf-8'})
+  }
+  const errorBody = await response.text()
+  throw new CLIError(`can't download: ${errorBody}`)
 }

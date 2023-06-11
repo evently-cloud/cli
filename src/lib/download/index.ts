@@ -10,11 +10,11 @@ import {linesValidator} from './validator'
 const finished = promisify(stream.finished)
 
 
-export async function downloadAndValidateLedger(ledgerFile: string): Promise<number> {
+export async function downloadAndValidateLedger(token: string, ledgerFile: string): Promise<number> {
 
   // this may take a while, so validate the file before opening the http connection
   const context = await validateLedgerFile(ledgerFile)
-  const httpReadStream = await openHttpLedgerReadStream(context)
+  const httpReadStream = await openHttpLedgerReadStream(token, context)
 
   const fileWriteStream = fs.createWriteStream(ledgerFile, {
     encoding: 'utf8',

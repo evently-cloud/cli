@@ -26,7 +26,7 @@ Validated 13,438 ledger events.
 
     initClient(flags.token)
 
-    const count = await downloadAndValidateLedger(flags.file)
+    const count = await downloadAndValidateLedger(flags.token, flags.file)
 
     const numberFormatter = new Intl.NumberFormat()
     this.log('Validated %s ledger events.', numberFormatter.format(count))
