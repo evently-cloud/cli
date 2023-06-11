@@ -50,6 +50,7 @@ export EVENTLY_TOKEN="your-token-here"
 * [`evently registry:list-entities`](#evently-registrylist-entities)
 * [`evently registry:list-events`](#evently-registrylist-events)
 * [`evently registry:new`](#evently-registrynew)
+* [`evently selector:replay`](#evently-selectorreplay)
 
 ## `evently append:atomic`
 
@@ -179,7 +180,7 @@ DESCRIPTION
   list all the commands
 ```
 
-_See code: [@oclif/plugin-commands](https://github.com/oclif/plugin-commands/blob/v2.2.14/src/commands/commands.ts)_
+_See code: [@oclif/plugin-commands](https://github.com/oclif/plugin-commands/blob/v2.2.15/src/commands/commands.ts)_
 
 ## `evently help [COMMANDS]`
 
@@ -291,6 +292,8 @@ _See code: [dist/commands/registry/delete.ts](https://github.com/evently-cloud/c
 
 ## `evently registry:list-entities`
 
+Lists all entities in the registry.
+
 ```
 USAGE
   $ evently registry:list-entities [-t <value>] [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output
@@ -308,6 +311,9 @@ FLAGS
                        <options: csv|json|yaml>
   --sort=<value>       property to sort by (prepend '-' for descending)
 
+DESCRIPTION
+  Lists all entities in the registry.
+
 EXAMPLES
   $ evently registry:list-entities
 ```
@@ -315,6 +321,8 @@ EXAMPLES
 _See code: [dist/commands/registry/list-entities.ts](https://github.com/evently-cloud/cli/blob/v0.3.0/dist/commands/registry/list-entities.ts)_
 
 ## `evently registry:list-events`
+
+Lists all event types for an entity.
 
 ```
 USAGE
@@ -333,6 +341,9 @@ FLAGS
   --output=<option>     output in a more machine friendly format
                         <options: csv|json|yaml>
   --sort=<value>        property to sort by (prepend '-' for descending)
+
+DESCRIPTION
+  Lists all event types for an entity.
 
 EXAMPLES
   $ evently registry:list-events --entity my-entity
@@ -362,4 +373,42 @@ EXAMPLES
 ```
 
 _See code: [dist/commands/registry/new.ts](https://github.com/evently-cloud/cli/blob/v0.3.0/dist/commands/registry/new.ts)_
+
+## `evently selector:replay`
+
+Replay an entities events.
+
+```
+USAGE
+  $ evently selector:replay -n <value> -k <value> [-t <value>] [-e <value>] [--after <value>] [--limit <value>]
+    [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  | [--csv | --no-truncate]]
+    [--no-header | ]
+
+FLAGS
+  -e, --event=<value>...  Event name
+  -k, --key=<value>...    (required) Entity keys to select for.
+  -n, --entity=<value>    (required) Entity name
+  -t, --token=<value>     [default: NOT-SET] Access token for your ledger.
+  -x, --extended          show extra columns
+  --after=<value>         Select events that occur after this ledger mark or event ID.
+  --columns=<value>       only show provided columns (comma-separated)
+  --csv                   output is csv format [alias: --output=csv]
+  --filter=<value>        filter property by partial string matching, ex: name=foo
+  --limit=<value>         Limit the number of returned events to this value.
+  --no-header             hide table header from output
+  --no-truncate           do not truncate output to fit screen
+  --output=<option>       output in a more machine friendly format
+                          <options: csv|json|yaml>
+  --sort=<value>          property to sort by (prepend '-' for descending)
+
+DESCRIPTION
+  Replay an entities events.
+
+EXAMPLES
+  $ evently selector:replay   -n article   -e add-comment   -k author
+
+  $ evently selector:replay   -n article   -e add-comment -e delete-comment   -k author, -k date   --limit 10
+```
+
+_See code: [dist/commands/selector/replay.ts](https://github.com/evently-cloud/cli/blob/v0.3.0/dist/commands/selector/replay.ts)_
 <!-- commandsstop -->

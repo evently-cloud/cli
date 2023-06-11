@@ -16,18 +16,17 @@ type ReplayEvent = {
 export default class SelectorReplay extends TokenAwareCommand {
   static description = 'Replay an entities events.'
 
+  /* eslint-disable quotes */
   static examples = [
     `$ evently selector:replay \
   -n article \
   -e add-comment \
-  -k author
-`,
+  -k author`,
     `$ evently selector:replay \
   -n article \
   -e add-comment -e delete-comment \
   -k author, -k date \
-  --limit 10
-`,
+  --limit 10`,
   ]
 
   static flags = {
