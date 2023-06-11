@@ -1,4 +1,5 @@
 import {Readable} from 'node:stream'
+import {ReadableStream} from 'stream/web'
 import {ValidationContext} from './types'
 import { getClient } from '../client'
 
@@ -31,12 +32,8 @@ export async function openHttpLedgerReadStream(context?: ValidationContext): Pro
   }
 
   /*
-   * Currently we're using node-fetch which uses actual Node Readable
-   * streams.
-   *
-   * But the types assume it's the same as a browser stream which is a "stream/web".ReadableStream.
-   *
-   * So for now we're just casting, until we can do away with node-fetch.
+     Ketting returns a web Response, whose body is a web stream. Node's pipeline() can't consume those,
+     so cast it to a node Readable.
    */
-  return Readable.fromWeb(response.body as any, {encoding: 'utf-8'})
+  return Readable.fromWeb(response.body as ReadableStream, {encoding: 'utf-8'})
 }
