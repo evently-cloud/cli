@@ -4,7 +4,7 @@ import {ReadableStream} from 'stream/web'
 import {ValidationContext} from './types'
 import { getClient } from '../client'
 
-export async function openHttpLedgerReadStream(token: string, context?: ValidationContext): Promise<Readable> {
+export async function openHttpLedgerReadStream(context?: ValidationContext): Promise<Readable> {
   const after = context?.previousEventId
   const afterMsg = after ? `after eventId ${after}` : 'fully'
   const body = after ? JSON.stringify({ after }): '{}'
@@ -24,7 +24,6 @@ export async function openHttpLedgerReadStream(token: string, context?: Validati
       'Accept':           'application/x-ndjson',
       'Prefer':           'return=representation',
       'Accept-Encoding':  'br',
-      'Authorization':    `Bearer ${token}`
     },
     body
   })
