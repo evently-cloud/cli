@@ -5,6 +5,7 @@ Changelog
 ------------------
 
 * Add a description for list-entities and list-events.
+* Added selector:replay command
 
 
 0.3.0 (2023-06-05)
