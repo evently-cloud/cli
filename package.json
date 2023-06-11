@@ -15,7 +15,7 @@
     "@oclif/plugin-help": "5.2",
     "@oclif/plugin-not-found": "2.3",
     "json5": "^2.2.3",
-    "ketting": "8.0.0-alpha.2"
+    "ketting": "8.0.0-alpha.3"
   },
   "devDependencies": {
     "@oclif/test": "^2.3.7",

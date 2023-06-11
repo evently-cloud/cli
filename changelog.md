@@ -6,6 +6,8 @@ Changelog
 
 * Add a description for list-entities and list-events.
 * Added selector:replay command
+* Fix for ledger:download. This command was broken due to a bug in an
+  underlying library.
 
 
 0.3.0 (2023-06-05)
