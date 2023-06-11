@@ -22,6 +22,7 @@ export async function openHttpLedgerReadStream(context?: ValidationContext): Pro
       'Prefer':           'return=representation',
       'Accept-Encoding':  'br'
     },
+    cache: 'no-store',
     body
   })
 
