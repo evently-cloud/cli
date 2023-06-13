@@ -380,21 +380,21 @@ Replay an entities events.
 
 ```
 USAGE
-  $ evently selector:replay -n <value> -k <value> [-t <value>] [-e <value>] [--after <value>] [--limit <value>]
-    [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  | [--csv | --no-truncate]]
-    [--no-header | ]
+  $ evently selector:replay -n <value> -k <value> [-t <value>] [-e <value>] [-a <value>] [-l <value>] [--columns
+    <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  | [--csv | --no-truncate]] [--no-header
+    | ]
 
 FLAGS
+  -a, --after=<value>     Select events that occur after this ledger mark or event ID.
   -e, --event=<value>...  Event name
   -k, --key=<value>...    (required) Entity keys to select for.
+  -l, --limit=<value>     [default: 50] Limit the number of returned events to this value.
   -n, --entity=<value>    (required) Entity name
   -t, --token=<value>     [default: NOT-SET] Access token for your ledger.
   -x, --extended          show extra columns
-  --after=<value>         Select events that occur after this ledger mark or event ID.
   --columns=<value>       only show provided columns (comma-separated)
   --csv                   output is csv format [alias: --output=csv]
   --filter=<value>        filter property by partial string matching, ex: name=foo
-  --limit=<value>         Limit the number of returned events to this value.
   --no-header             hide table header from output
   --no-truncate           do not truncate output to fit screen
   --output=<option>       output in a more machine friendly format

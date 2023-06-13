@@ -49,9 +49,14 @@ export default class SelectorReplay extends TokenAwareCommand {
     }),
     after: Flags.string({
       description: 'Select events that occur after this ledger mark or event ID.',
+      char: 'a',
     }),
     limit: Flags.integer({
       description: 'Limit the number of returned events to this value.',
+      char: 'l',
+      default: 50,
+      min: 1,
+      max: 5000,
     }),
     ...TokenAwareCommand.flags,
     ...ux.table.flags(),
