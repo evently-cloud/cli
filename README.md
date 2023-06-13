@@ -85,7 +85,7 @@ EXAMPLES
   Created new event at: https://preview.evently.cloud/selectors/fetch/ijfoij2oip4gj4wd.json
 ```
 
-_See code: [dist/commands/append/atomic.ts](https://github.com/evently-cloud/cli/blob/v0.3.0/dist/commands/append/atomic.ts)_
+_See code: [dist/commands/append/atomic.ts](https://github.com/evently-cloud/cli/blob/v0.3.1/dist/commands/append/atomic.ts)_
 
 ## `evently append:fact`
 
@@ -116,7 +116,7 @@ EXAMPLES
   Created new event at: https://preview.evently.cloud/selectors/fetch/ijfoij2oip4gj4wd.json
 ```
 
-_See code: [dist/commands/append/fact.ts](https://github.com/evently-cloud/cli/blob/v0.3.0/dist/commands/append/fact.ts)_
+_See code: [dist/commands/append/fact.ts](https://github.com/evently-cloud/cli/blob/v0.3.1/dist/commands/append/fact.ts)_
 
 ## `evently append:serial`
 
@@ -148,7 +148,7 @@ EXAMPLES
   Created new event at: https://preview.evently.cloud/selectors/fetch/ijfoij2oip4gj4wd.json
 ```
 
-_See code: [dist/commands/append/serial.ts](https://github.com/evently-cloud/cli/blob/v0.3.0/dist/commands/append/serial.ts)_
+_See code: [dist/commands/append/serial.ts](https://github.com/evently-cloud/cli/blob/v0.3.1/dist/commands/append/serial.ts)_
 
 ## `evently commands`
 
@@ -221,7 +221,7 @@ EXAMPLES
   name: your-ledger-name, events: count
 ```
 
-_See code: [dist/commands/ledger/index.ts](https://github.com/evently-cloud/cli/blob/v0.3.0/dist/commands/ledger/index.ts)_
+_See code: [dist/commands/ledger/index.ts](https://github.com/evently-cloud/cli/blob/v0.3.1/dist/commands/ledger/index.ts)_
 
 ## `evently ledger:download`
 
@@ -243,7 +243,7 @@ EXAMPLES
   Validated 13,438 ledger events.
 ```
 
-_See code: [dist/commands/ledger/download.ts](https://github.com/evently-cloud/cli/blob/v0.3.0/dist/commands/ledger/download.ts)_
+_See code: [dist/commands/ledger/download.ts](https://github.com/evently-cloud/cli/blob/v0.3.1/dist/commands/ledger/download.ts)_
 
 ## `evently ledger:reset`
 
@@ -265,7 +265,7 @@ EXAMPLES
   Reset ledger fully.
 ```
 
-_See code: [dist/commands/ledger/reset.ts](https://github.com/evently-cloud/cli/blob/v0.3.0/dist/commands/ledger/reset.ts)_
+_See code: [dist/commands/ledger/reset.ts](https://github.com/evently-cloud/cli/blob/v0.3.1/dist/commands/ledger/reset.ts)_
 
 ## `evently registry:delete`
 
@@ -288,7 +288,7 @@ EXAMPLES
   Deleted entity event type https://preview.evently.cloud/registry/article/add-comment
 ```
 
-_See code: [dist/commands/registry/delete.ts](https://github.com/evently-cloud/cli/blob/v0.3.0/dist/commands/registry/delete.ts)_
+_See code: [dist/commands/registry/delete.ts](https://github.com/evently-cloud/cli/blob/v0.3.1/dist/commands/registry/delete.ts)_
 
 ## `evently registry:list-entities`
 
@@ -318,7 +318,7 @@ EXAMPLES
   $ evently registry:list-entities
 ```
 
-_See code: [dist/commands/registry/list-entities.ts](https://github.com/evently-cloud/cli/blob/v0.3.0/dist/commands/registry/list-entities.ts)_
+_See code: [dist/commands/registry/list-entities.ts](https://github.com/evently-cloud/cli/blob/v0.3.1/dist/commands/registry/list-entities.ts)_
 
 ## `evently registry:list-events`
 
@@ -349,7 +349,7 @@ EXAMPLES
   $ evently registry:list-events --entity my-entity
 ```
 
-_See code: [dist/commands/registry/list-events.ts](https://github.com/evently-cloud/cli/blob/v0.3.0/dist/commands/registry/list-events.ts)_
+_See code: [dist/commands/registry/list-events.ts](https://github.com/evently-cloud/cli/blob/v0.3.1/dist/commands/registry/list-events.ts)_
 
 ## `evently registry:new`
 
@@ -372,7 +372,7 @@ EXAMPLES
   Created entity event type at https://preview.evently.cloud/registry/article/add-comment
 ```
 
-_See code: [dist/commands/registry/new.ts](https://github.com/evently-cloud/cli/blob/v0.3.0/dist/commands/registry/new.ts)_
+_See code: [dist/commands/registry/new.ts](https://github.com/evently-cloud/cli/blob/v0.3.1/dist/commands/registry/new.ts)_
 
 ## `evently selector:replay`
 
@@ -410,5 +410,5 @@ EXAMPLES
   $ evently selector:replay   -n article   -e add-comment -e delete-comment   -k author, -k date   --limit 10
 ```
 
-_See code: [dist/commands/selector/replay.ts](https://github.com/evently-cloud/cli/blob/v0.3.0/dist/commands/selector/replay.ts)_
+_See code: [dist/commands/selector/replay.ts](https://github.com/evently-cloud/cli/blob/v0.3.1/dist/commands/selector/replay.ts)_
 <!-- commandsstop -->
