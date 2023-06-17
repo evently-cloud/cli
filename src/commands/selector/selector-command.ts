@@ -56,7 +56,7 @@ export abstract class SelectorCommand extends TokenAwareCommand {
 
     return [
       table,
-      meta._links.next.href ?? null
+      meta._links?.next?.href ?? null
     ]
 
   }
