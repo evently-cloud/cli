@@ -1,24 +1,15 @@
-import {TokenAwareCommand} from '../../lib/token-command'
+import { TokenAwareCommand } from '../../lib/token-command'
+import { SelectorCommand } from './selector-command'
 import {initClient} from '../../lib/client'
 import { ux, Flags } from '@oclif/core'
+import { CLIError } from '@oclif/core/lib/errors'
 
-
-type ReplayEvent = {
-  entity: string
-  key: string
-  event: string
-  eventId: string
-  timestamp: string
-  meta: Record<string, string>
-  data: Record<string, any>
-}
-
-export default class SelectorFilter extends TokenAwareCommand {
+export default class SelectorFilter extends SelectorCommand {
   static description = 'Replay an entities events.'
 
   /* eslint-disable quotes */
   static examples = [
-    `$ evently selector:replay \
+    `$ evently selector:filter \
   -n article \
   -e add-comment \
   -k author`,
@@ -30,12 +21,11 @@ export default class SelectorFilter extends TokenAwareCommand {
   ]
 
   static flags = {
-    'meta-filter': Flags.string({
+    meta: Flags.string({
       description: 'SQL JSONPath on the event\'s meta object',
-      multiple: true,
     }),
-    'data-filter': Flags.string({
-      description: 'SQL JSONPath on the event\'s data object',
+    data: Flags.string({
+      description: 'SQL JSONPath on the event\'s data object. This should be in the format "entity:event:jsonpath". Only the last component may have colons itself.',
       multiple: true,
     }),
     after: Flags.string({
@@ -58,63 +48,54 @@ export default class SelectorFilter extends TokenAwareCommand {
 
     const client = initClient(flags.token)
 
-    const replayRes = await client
+    const filterRes = await client
       .follow('selectors')
       .follow('filter')
 
-    const result = await replayRes.post({
+    if (!flags.data && !flags.meta) {
+      throw new CLIError('At least one of the "--data" or "--meta" arguments must be specified')
+    }
+
+    const result = await filterRes.post({
       data: {
-        entity: flags.entity,
-        events: flags.event,
+        data: flags.data ? parseDataFilter(flags.data) : undefined,
+        meta: flags.meta,
         limit: flags.limit,
         after: flags.after,
       }
     })
 
-    const records = []
-    const lines = (await result.data.text()).trim().split('\n')
-    for (const record of lines) {
-      records.push(JSON.parse(record))
-    }
-
-    const table:ReplayEvent[] = records.slice(0, -1)
-    const meta = records.at(-1)
-
-    ux.table(
-      table,
-      {
-        entity: {
-          header: 'Entity',
-        },
-        key: {
-          header: 'Key',
-        },
-        event: {
-          header: 'Event',
-        },
-        eventId: {
-          header: 'Event ID',
-        },
-        timestamp: {
-          header: 'Timestamp',
-        },
-        meta: {
-          header: 'Meta',
-        },
-        data: {
-          header: 'Data',
-        }
-      },
-      flags,
-    )
-
-    this.log('')
-    if ('next' in meta._links) {
-      this.log('Next page: %s', meta._links.next.href)
-    } else {
-      this.log('No more data')
-    }
+    const [table, nextLink] = await this.parsePostResponse(result.data)
+    this.renderTable(table, flags, nextLink)
 
   }
+
+}
+
+
+/**
+ * Top level of this objects are entites, second level event names, values are JSONPath statements.
+ */
+type DataFilter = Record<string, Record<string, string>>
+
+const dataFilterRe = /^([^:]+):([^:]+):(.*)$/
+
+function parseDataFilter(input: string[]): DataFilter {
+
+  const out: DataFilter = {}
+  for(const item of input) {
+
+    const matches = item.match(dataFilterRe)
+    if (!matches) {
+      throw new CLIError('The --filter argument must be in the format <entity-name>:<event-name>:<JSONPAth>.')
+    }
+    const [, entity, event, jsonPath] = matches
+    if (!(entity in out)) {
+      out[entity] = {}
+    }
+    out[entity][event] = jsonPath
+
+  }
+  return out
 
 }
