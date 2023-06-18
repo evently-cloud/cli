@@ -50,7 +50,10 @@ export EVENTLY_TOKEN="your-token-here"
 * [`evently registry:list-entities`](#evently-registrylist-entities)
 * [`evently registry:list-events`](#evently-registrylist-events)
 * [`evently registry:new`](#evently-registrynew)
+* [`evently selector:filter`](#evently-selectorfilter)
 * [`evently selector:replay`](#evently-selectorreplay)
+* [`evently selector:selector-command`](#evently-selectorselector-command)
+* [`evently selector:table`](#evently-selectortable)
 
 ## `evently append:atomic`
 
@@ -374,6 +377,45 @@ EXAMPLES
 
 _See code: [dist/commands/registry/new.ts](https://github.com/evently-cloud/cli/blob/v0.3.1/dist/commands/registry/new.ts)_
 
+## `evently selector:filter`
+
+Filter the ledger for matching events using JSONPath.
+
+```
+USAGE
+  $ evently selector:filter [-t <value>] [--meta <value>] [--data <value>] [-a <value>] [-l <value>] [--columns
+    <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  | [--csv | --no-truncate]] [--no-header
+    | ]
+
+FLAGS
+  -a, --after=<value>  Select events that occur after this ledger mark or event ID.
+  -l, --limit=<value>  [default: 50] Limit the number of returned events to this value.
+  -t, --token=<value>  [default: NOT-SET] Access token for your ledger.
+  -x, --extended       show extra columns
+  --columns=<value>    only show provided columns (comma-separated)
+  --csv                output is csv format [alias: --output=csv]
+  --data=<value>...    SQL JSONPath on the event's data object. This should be in the format "entity:event:jsonpath".
+                       Only the last component may have colons itself.
+  --filter=<value>     filter property by partial string matching, ex: name=foo
+  --meta=<value>       SQL JSONPath on the event's meta object
+  --no-header          hide table header from output
+  --no-truncate        do not truncate output to fit screen
+  --output=<option>    output in a more machine friendly format
+                       <options: csv|json|yaml>
+  --sort=<value>       property to sort by (prepend '-' for descending)
+
+DESCRIPTION
+  Filter the ledger for matching events using JSONPath.
+
+EXAMPLES
+  $ evently selector:filter       article:add-comment:\"$\"
+
+  $ evently selector:replay   article:add-comment:\"$\",
+    --limit 10
+```
+
+_See code: [dist/commands/selector/filter.ts](https://github.com/evently-cloud/cli/blob/v0.3.1/dist/commands/selector/filter.ts)_
+
 ## `evently selector:replay`
 
 Replay an entities events.
@@ -411,4 +453,28 @@ EXAMPLES
 ```
 
 _See code: [dist/commands/selector/replay.ts](https://github.com/evently-cloud/cli/blob/v0.3.1/dist/commands/selector/replay.ts)_
+
+## `evently selector:selector-command`
+
+```
+USAGE
+  $ evently selector:selector-command [-t <value>]
+
+FLAGS
+  -t, --token=<value>  [default: NOT-SET] Access token for your ledger.
+```
+
+_See code: [dist/commands/selector/selector-command.ts](https://github.com/evently-cloud/cli/blob/v0.3.1/dist/commands/selector/selector-command.ts)_
+
+## `evently selector:table`
+
+```
+USAGE
+  $ evently selector:table [-t <value>]
+
+FLAGS
+  -t, --token=<value>  [default: NOT-SET] Access token for your ledger.
+```
+
+_See code: [dist/commands/selector/table.ts](https://github.com/evently-cloud/cli/blob/v0.3.1/dist/commands/selector/table.ts)_
 <!-- commandsstop -->
