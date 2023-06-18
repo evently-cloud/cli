@@ -4,7 +4,8 @@ Changelog
 0.3.2 (????-??-??)
 ------------------
 
-* Added selector:replay command
+* Add selector:replay command.
+* Add selector:filter command.
 
 
 0.3.1 (2023-06-11)
