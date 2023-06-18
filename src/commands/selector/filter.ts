@@ -5,18 +5,14 @@ import { ux, Flags } from '@oclif/core'
 import { CLIError } from '@oclif/core/lib/errors'
 
 export default class SelectorFilter extends SelectorCommand {
-  static description = 'Replay an entities events.'
+  static description = 'Filter the ledger for matching events using JSONPath.'
 
   /* eslint-disable quotes */
   static examples = [
     `$ evently selector:filter \
-  -n article \
-  -e add-comment \
-  -k author`,
+      article:add-comment:\\"$\\"`,
     `$ evently selector:replay \
-  -n article \
-  -e add-comment -e delete-comment \
-  -k author, -k date \
+  article:add-comment:\\"$\\",
   --limit 10`,
   ]
 
