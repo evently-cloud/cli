@@ -12,7 +12,7 @@ export default class SelectorFilter extends SelectorCommand {
     `$ evently selector:filter \
       article:add-comment:\\"$\\"`,
     `$ evently selector:replay \
-  article:add-comment:\\"$\\",
+  article:add-comment:\\"$\\"
   --limit 10`,
   ]
 
